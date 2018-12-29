@@ -141,6 +141,7 @@ class Menu implements ChatInput {
 		$inv = $player->getInventory();
 		$blank = $this->getBlank();
 		$uma = json_decode('"\u265E"');
+		$ar = [];
 		switch($no){
 			//["たいとる", 数字/ false] 数字はページの内容
 /*

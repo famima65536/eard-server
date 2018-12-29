@@ -102,7 +102,7 @@ class FreeShop implements BlockObject {
 			}
 		}else{
 			$price = $this->getPrice();
-			$list = $this->getItemNameList();	
+			$list = $this->getItemNameList();
 			switch($this->buyCheck($player)){
 				case -2:
 					$message = "この商品は売り切れています";

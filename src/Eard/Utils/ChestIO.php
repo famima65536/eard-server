@@ -1,6 +1,7 @@
 <?php
 namespace Eard\Utils;
 
+use pocketmine\nbt\LittleEndianNBTStream;
 use pocketmine\Player;
 use pocketmine\item\Item;
 //use pocketmine\inventory\InventoryType;
@@ -111,7 +112,7 @@ class ChestIO extends BaseInventory {
 
 		// NBT送る(チェスト開けたときのインベントリ名変更)　from pocketmine\tile\spawnable
 		if($name = $this->getName()){
-			$nbt = new NBT(NBT::LITTLE_ENDIAN);
+			$nbt = new LittleEndianNBTStream();
 			$c = new CompoundTag("", [
 				new StringTag("id", "Chest"),
 				new IntTag("x", $x),
@@ -119,12 +120,11 @@ class ChestIO extends BaseInventory {
 				new IntTag("z", $z),
 				new StringTag("CustomName", $name)
 			]);
-			$nbt->setData($c);
 			$pk = new BlockEntityDataPacket();
 			$pk->x = (int) $x;
 			$pk->y = (int) $y;
 			$pk->z = (int) $z;
-			$pk->namedtag = $nbt->write(true);
+			$pk->namedtag = $nbt->write($c);
 			$who->dataPacket($pk);
 		}
 

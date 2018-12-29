@@ -151,6 +151,7 @@ class Place {
 		$result = DB::get()->query($sql);
 		if($result){
 			$stat = 0;
+			$updatedTime = 0;
 			while($row = $result->fetch_assoc()){
 				$stat = (int) $row['stat'];
 				$updatedTime = $row['lastupdate'];

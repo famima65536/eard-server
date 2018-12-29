@@ -98,7 +98,7 @@ class Connection {
 
 	/**
 	*	今空いている、このさばの、placeを返す。webからは使うな。
-	*	@return Place　| null
+	*	@return Place | null
 	*/
 	public static function getPlace(){
 		return isset(self::$places[self::$placeNo]) ? self::$places[self::$placeNo] : null;

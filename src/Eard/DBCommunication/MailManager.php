@@ -167,7 +167,7 @@ class MailManager {
         $date = 0;
 
         $stmt->bind_result(
-            $mailId, $from, $to, $state, $key, $subject, $body, $date;
+            $mailId, $from, $to, $state, $key, $subject, $body, $date
         );
         $stmt->execute();
 
@@ -192,10 +192,11 @@ class MailManager {
 
     /**
     *   メモリ上から、そのプレイヤーの受信できるメールをアンロードする(削除)
+	*   @param Account $playerData
     *   @return true
     */
     public static function unloadMailsOf(Account $playerData){
-        unset(self::$mails[$uniqueNo]);
+        unset(self::$mails[$playerData->getUniqueNo()]);
         return true;
     }
 

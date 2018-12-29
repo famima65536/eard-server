@@ -7,6 +7,7 @@ use Eard\MeuHandler\Account;
 use Eard\MeuHandler\Government;
 use Eard\MeuHandler\Account\License\License;
 use Eard\MeuHandler\Account\License\Costable;
+use pocketmine\Player;
 
 
 class LicenseForm extends FormBase {
@@ -370,7 +371,7 @@ class LicenseForm extends FormBase {
 					$realtitle = "ライセンス > {$license->getName()} > 新規購入";
 					$this->sendErrorModal(
 						"{$realtitle}",
-						"すでにライセンス「{$licensename}」を持っています。", 2
+						"すでにライセンス「{$license->getName()}」を持っています。", 2
 					);
 				}else{
 					$license = License::get($this->selectedLicenseNo); // 追加したいライセンス
@@ -383,7 +384,7 @@ class LicenseForm extends FormBase {
 							$pay = $license->getPrice();
 							if($pay && !Government::receiveMeu($playerData, $pay, "政府: ライセンス {$license->getName()} 新規購入")){
 								// 9でチェックとってるからでないはずだけど一応
-								if($player) $player->sendMessage(Chat::Format("§7政府", "§6個人", "§cエラー。§7お金が足りません。"));
+								if($playerData->isOnline()) $playerData->getPlayer()->sendMessage(Chat::Format("§7政府", "§6個人", "§cエラー。§7お金が足りません。"));
 								$this->sendInternalErrorModal("FormId 10\n政府への支払いに失敗したため、新規購入 できませんでした。", 2);								
 							}else{
 								$realtitle = "ライセンス > {$license->getName()} > 新規購入";
@@ -405,7 +406,7 @@ class LicenseForm extends FormBase {
 					$canUpgrade = $newlicense->upgrade();
 					$pay = $newlicense->getPrice();
 					if($pay && !Government::receiveMeu($playerData, $pay, "政府: ライセンス {$license->getName()} ランクアップ")){
-						if($player) $player->sendMessage(Chat::Format("§7政府", "§6個人", "§cエラー。§7お金が足りません。"));
+						if($playerData->isOnline()) $playerData->getPlayer()->sendMessage(Chat::Format("§7政府", "§6個人", "§cエラー。§7お金が足りません。"));
 						$this->sendInternalErrorModal("FormId 11\n政府への支払いに失敗したため、ランクアップできませんでした。", 2);
 					}else{
 						if(!$canUpgrade){

@@ -42,6 +42,7 @@ class NaviForm extends FormBase {
 	public function send(int $id){
 		$playerData = $this->playerData;
 		$cache = [];
+		$data = [];
 		switch($id){
 			//GPS => 目的地設定
 			case 1:

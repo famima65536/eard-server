@@ -58,6 +58,7 @@ class QuestManager{
 				$quests = $list::getQuests();
 				foreach($quests as $questId => $questClass){
 					$color = self::getColor($questClass::getQuestType());
+					$icon = "";
 
 					$stat = Account::get($player)->isClearedQuest($questClass::QUESTID) ? "_clear" : "";
 					/*

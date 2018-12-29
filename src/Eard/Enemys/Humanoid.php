@@ -61,6 +61,7 @@ class Humanoid extends Human{
 	 * 貫通できるブロックかを返す
 	 *
 	 * @param int $blockId
+	 * @return bool
 	 */
 	public static function canThrough($blockId){
 		switch($blockId){

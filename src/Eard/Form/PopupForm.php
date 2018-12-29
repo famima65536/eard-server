@@ -36,6 +36,7 @@ class PopupForm extends FormBase {
 			);
 		}
 		$cache = [];
+		$data = [];
 		switch($id){
 			case 0:
 				$this->close();

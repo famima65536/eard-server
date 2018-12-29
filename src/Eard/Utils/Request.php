@@ -3,7 +3,7 @@
  * The MIT License
  * Copyright (c) 2007 Andy Smith
  */
-namespace  Eard\Utils\TwitterAPI
+namespace  Eard\Utils\TwitterAPI;
 
 class Request
 {

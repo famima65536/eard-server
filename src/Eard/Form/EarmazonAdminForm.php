@@ -25,6 +25,7 @@ class EarmazonAdminForm extends FormBase {
 	public function send(int $id){
 		$playerData = $this->playerData;
 		$cache = [];
+		$data = [];
 		switch($id){
 			case 1:
 				// メニュー
