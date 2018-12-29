@@ -7,9 +7,9 @@ use Eard\Main;
 use pocketmine\Player;
 use pocketmine\Server;
 
-use pocketmine\networks\protocol\AddEntityPacket;
-use pocketmine\networks\protocol\MobArmorEquipmentPacket;
-use pocketmine\networks\protocol\AnimatePacket;
+use pocketmine\network\mcpe\protocol\AddEntityPacket;
+use pocketmine\network\mcpe\protocol\MobArmorEquipmentPacket;
+use pocketmine\network\mcpe\protocol\AnimatePacket;
 
 use pocketmine\level\Level;
 use pocketmine\level\Position;
@@ -241,7 +241,7 @@ class Ginmekki extends Humanoid implements Enemy{
 		return parent::onUpdate($tick);
 	}
 
-		public function attack(EntityDamageEvent $source){
+		public function attack(EntityDamageEvent $source): void{
 		$damage = $source->getDamage();// 20170928 src変更による書き換え
 		parent::attack($source);
 		AI::setRate($this, 10);

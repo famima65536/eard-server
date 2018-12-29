@@ -307,7 +307,7 @@ class Kumo extends Humanoid implements Enemy{
 		}
 	}*/
 
-		public function attack(EntityDamageEvent $source){
+		public function attack(EntityDamageEvent $source): void{
 		$damage = $source->getDamage();// 20170928 src変更による書き換え
 		parent::attack($source);
 	}

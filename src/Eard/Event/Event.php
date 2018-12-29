@@ -21,7 +21,7 @@ use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\event\player\PlayerItemHeldEvent;
 use pocketmine\event\player\PlayerChatEvent;
 use pocketmine\event\player\PlayerDeathEvent;
-use pocketmine\event\player\PlayerFishEvent;
+//use pocketmine\event\player\PlayerFishEvent;
 use pocketmine\event\player\PlayerRespawnEvent;
 use pocketmine\event\player\PlayerItemConsumeEvent;
 
@@ -131,7 +131,7 @@ class Event implements Listener{
 			$inv = $player->getInventory();
 			$inv->addItem(Item::get(416));
 		});
-		Server::getInstance()->getScheduler()->scheduleDelayedTask($task, 5);
+		Main::getInstance()->getScheduler()->scheduleDelayedTask($task, 5);
 	}
 
 
@@ -162,7 +162,7 @@ class Event implements Listener{
 
 
 	// 20170928 1.2対応のためいったん無効 20171003 対応させたので復活
-	public function F(PlayerFishEvent $e){
+	/*public function F(PlayerFishEvent $e){
 		$item = $e->getItem();
 		$hook = $e->getHook();
 		switch($item->getId()){
@@ -181,7 +181,7 @@ class Event implements Listener{
 				$e->setCancelled(true);
 			break;
 		}
-	}
+	}*/
 
 	public function PacketReceive(DataPacketReceiveEvent $e){
 		$packet = $e->getPacket();
@@ -668,13 +668,13 @@ class Event implements Listener{
 		switch($item->getId()){
 			case Item::POTION:
 				switch($item->getDamage()){
-					case Potion::WATER_BOTTLE:
+					case Potion::WATER:
 						$player->removeEffect(Effect::POISON);
 					break;
 					case Potion::MUNDANE:
 						AI::allEffectExtension($player, 1200);
 					break;
-					case Potion::MUNDANE_EXTENDED:
+					case Potion::LONG_MUNDANE:
 						AI::allEffectExtension($player, 2400);
 					break;
 					case Potion::THICK:

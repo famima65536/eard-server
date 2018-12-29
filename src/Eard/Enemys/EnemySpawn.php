@@ -19,7 +19,7 @@ class EnemySpawn extends Task{
 	const TIME = 20;
 
 	public static function call($class, Position $position, $type = self::TYPE_COMMON){
-		Server::getInstance()->getScheduler()->scheduleRepeatingTask(new EnemySpawn($class, $position, $type), 2);
+		Main::getInstance()->getScheduler()->scheduleRepeatingTask(new EnemySpawn($class, $position, $type), 2);
 	}
 
 	public function __construct($class, $position, $type){
@@ -57,7 +57,7 @@ class EnemySpawn extends Task{
 		if($this->count === self::TIME){
 			$this->class::summon($level, $this->position->x, $this->position->y, $this->position->z);
 			$level->addParticle(new MobSpawnParticle($this->position, $this->size, $this->size));
-			Server::getInstance()->getScheduler()->cancelTask($this->getTaskId());
+			Main::getInstance()->getScheduler()->cancelTask($this->getTaskId());
 		}
 	}
 }

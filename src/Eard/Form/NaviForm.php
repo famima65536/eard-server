@@ -2,6 +2,8 @@
 namespace Eard\Form;
 
 # basic
+use Eard\DBCommunication\Place;
+use Eard\Main;
 use pocketmine\Server;
 use pocketmine\scheduler\Task;
 use pocketmine\math\Vector3;
@@ -34,7 +36,7 @@ class NaviForm extends FormBase {
 
 	//案内するためのタスク生成
 	public static function init(){
-		Server::getInstance()->getScheduler()->scheduleRepeatingTask(new Navigation(), 20);
+		Main::getInstance()->getScheduler()->scheduleRepeatingTask(new Navigation(), 20);
 	}
 
 	public function send(int $id){
@@ -399,31 +401,33 @@ class NaviForm extends FormBase {
 class Navigation extends Task{
 
 	public function onRun($tick){
-		$isLivingArea = Connection::getPlace()->isLivingArea();
-		foreach(Server::getInstance()->getOnlinePlayers() as $player){
-			$playerData = Account::get($player);
-			$target = $playerData->getNavigating($isLivingArea);
-			if($target !== null){
-				$pos = null;
-				switch (true) {
-					case $target === true: //リスポーン地点
-						$pos = $player->getSpawn();
-					break;
-					case is_string($target): //プレイヤー名
-						$p = Server::getInstance()->getPlayer($target);
-						if($p){
-							$pos = $p;
-						}else{
-							$playerData->setNavigating(null, $isLivingArea);
-							$player->sendMessage(Chat::SystemToPlayer("そのプレイヤーは同じ区域にいませんでした"));
-							$player->sendMessage(Chat::SystemToPlayer("案内先を未選択状態に設定しました"));
-						}
-					break;
-					case is_array($target): //セクション
-						$pos = new Vector3(AreaProtector::uncalculateSectionNo($target[0]), 0, AreaProtector::uncalculateSectionNo($target[1])); //どこかに動的に保存すれば軽量化できるかも
-					break;
+		if(Connection::getPlace() instanceof Place){
+			$isLivingArea = Connection::getPlace()->isLivingArea();
+			foreach(Server::getInstance()->getOnlinePlayers() as $player){
+				$playerData = Account::get($player);
+				$target = $playerData->getNavigating($isLivingArea);
+				if($target !== null){
+					$pos = null;
+					switch (true) {
+						case $target === true: //リスポーン地点
+							$pos = $player->getSpawn();
+						break;
+						case is_string($target): //プレイヤー名
+							$p = Server::getInstance()->getPlayer($target);
+							if($p){
+								$pos = $p;
+							}else{
+								$playerData->setNavigating(null, $isLivingArea);
+								$player->sendMessage(Chat::SystemToPlayer("そのプレイヤーは同じ区域にいませんでした"));
+								$player->sendMessage(Chat::SystemToPlayer("案内先を未選択状態に設定しました"));
+							}
+						break;
+						case is_array($target): //セクション
+							$pos = new Vector3(AreaProtector::uncalculateSectionNo($target[0]), 0, AreaProtector::uncalculateSectionNo($target[1])); //どこかに動的に保存すれば軽量化できるかも
+						break;
+					}
+					if($pos) AI::addGuideParticle($player, $pos);
 				}
-				if($pos) AI::addGuideParticle($player, $pos);
 			}
 		}
 	}

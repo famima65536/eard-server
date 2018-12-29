@@ -23,7 +23,7 @@ class mission18 extends Quest{
 	}
 
 	public static function getTarget(){
-		return [Item::CLOWN_FISH, 0];
+		return [Item::CLOWNFISH, 0];
 	}
 
 	public static function getReward(){

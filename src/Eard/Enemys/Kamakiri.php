@@ -346,7 +346,7 @@ class Kamakiri extends Humanoid implements Enemy{
 			$ev = new EntityDamageByEntityEvent($a, $v, EntityDamageByEntityEvent::CAUSE_ENTITY_ATTACK, 1, 0);
 			$task = new DelayAttack($a, $v, $ev);
 			for($i = 0; $i < $more; $i++){
-				Server::getInstance()->getScheduler()->scheduleDelayedTask($task, 20+$i*2);
+				Main::getInstance()->getScheduler()->scheduleDelayedTask($task, 20+$i*2);
 			}
 			$v->heal(new EntityRegainHealthEvent($v, 0, EntityRegainHealthEvent::CAUSE_MAGIC));
 			return true;
@@ -365,7 +365,7 @@ class Kamakiri extends Humanoid implements Enemy{
 		$victim->level->addparticle(new DestroyBlockParticle($victim, Block::get(152)));
 	}
 
-	public function attack(EntityDamageEvent $source){
+	public function attack(EntityDamageEvent $source): void{
 		$damage = $source->getDamage();// 20170928 src変更による書き換え
 		parent::attack($source);
 	}

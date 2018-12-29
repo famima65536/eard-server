@@ -51,7 +51,7 @@ class Spawn extends Task{
 
 	public static function init($spawnType){
 		$task = new Spawn($spawnType);
-		Server::getInstance()->getScheduler()->scheduleRepeatingTask($task, 20);
+		Main::getInstance()->getScheduler()->scheduleRepeatingTask($task, 20);
 	}
 
 	public function __construct($spawnType){

@@ -104,7 +104,7 @@ class ElevatorForm extends FormBase {
 	public function animation($desty){
 		/*
 		$task = new animation($this->playerData, $this->vector, $desty);
-		Server::getInstance()->getScheduler()->scheduleRepeatingTask($task, 20);
+		Main::getInstance()->getScheduler()->scheduleRepeatingTask($task, 20);
 		*/
 		// 今んとことりあえず上に登るぶぶんだけ
 		$this->playerData->getPlayer()->teleport(new Vector3($this->vector->x + 0.5, $desty + 1.1, $this->vector->z + 0.5));

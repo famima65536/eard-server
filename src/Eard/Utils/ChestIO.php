@@ -86,7 +86,7 @@ class ChestIO extends BaseInventory {
 	/**
 	*	AddWindowすると、Openを経由して実行される
 	*/
-	public function onOpen(Player $who){
+	public function onOpen(Player $who): void{
 
 		// まずはダミーのチェスト置く座標作る
 		$x = round($who->getX());
@@ -149,7 +149,7 @@ class ChestIO extends BaseInventory {
 	}
 
 
-	public function onClose(Player $who){
+	public function onClose(Player $who): void{
 
 		// コンテナ閉じる
 		$pk = new ContainerClosePacket();

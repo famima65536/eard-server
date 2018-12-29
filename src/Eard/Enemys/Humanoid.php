@@ -193,7 +193,7 @@ class Humanoid extends Human{
 		return $grandParent::onUpdate($tick);
 	}
 
-	public function attack(EntityDamageEvent $source){
+	public function attack(EntityDamageEvent $source): void{
 		$damage = $source->getDamage();// 20170928 src変更による書き換え
 		if($source->getCause() === EntityDamageEvent::CAUSE_FALL){
 			$source->setCancelled(true);
@@ -212,7 +212,7 @@ class Humanoid extends Human{
 		parent::attack($source);
 	}
 
-	public function kill(){
+	public function kill(): void{
 		$this->level->addParticle(new SpellParticle($this, 20, 220, 20));
 		if($this->lastDamageCause instanceof EntityDamageByEntityEvent and $this->lastDamageCause->getDamager() instanceof Player){
 			foreach ($this->score as $name => $score) {

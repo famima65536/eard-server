@@ -7,9 +7,9 @@ use Eard\Main;
 use pocketmine\Player;
 use pocketmine\Server;
 
-use pocketmine\networks\protocol\AddEntityPacket;
-use pocketmine\networks\protocol\MobArmorEquipmentPacket;
-use pocketmine\networks\protocol\AnimatePacket;
+use pocketmine\network\mcpe\protocol\AddEntityPacket;
+use pocketmine\network\mcpe\protocol\MobArmorEquipmentPacket;
+use pocketmine\network\mcpe\protocol\AnimatePacket;
 
 use pocketmine\level\Level;
 use pocketmine\level\Position;
@@ -95,7 +95,7 @@ class Sentakuki extends Humanoid implements Enemy{
 					[Item::RAW_FISH, 0, 1],
 					[Item::LEATHER, 0, 1],
 					[Item::IRON_INGOT, 0, 1],
-					[Item::CLOWN_FISH, 0, 1],
+					[Item::CLOWNFISH, 0, 1],
 					[Item::REDSTONE, 0, 1],
 				],
 			],
@@ -355,7 +355,7 @@ class Sentakuki extends Humanoid implements Enemy{
 		return parent::onUpdate($tick);
 	}
 
-	public function attack(EntityDamageEvent $source){
+	public function attack(EntityDamageEvent $source): void{
 		$damage = $source->getDamage();// 20170928 src変更による書き換え
 		parent::attack($source);
 	}

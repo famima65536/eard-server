@@ -144,7 +144,7 @@ abstract class AI{
 		$z2 = $target->z;
 
 		if(-$z2+$z1 == 0){
-			return false;
+			return;
 		}
 
 		$yaw = atan(($x2-$x1)/(-$z2+$z1))*180/M_PI;
@@ -475,7 +475,7 @@ abstract class AI{
 			);
 			$level->addParticle($text, [$from]);
 			$task = new DeleteText($text, $from);
-			Server::getInstance()->getScheduler()->scheduleDelayedTask($task, 20);
+			Main::getInstance()->getScheduler()->scheduleDelayedTask($task, 20);
 		}
 		$m_xx = -sin(($yaw+140)/180*M_PI)*0.5;
 		$m_zz =  cos(($yaw+140)/180*M_PI)*0.5;
@@ -534,7 +534,7 @@ abstract class AI{
 		);
 		$player->getLevel()->addParticle($particle, [$player]);
 		$task = new DeleteText($particle, $player);
-		Server::getInstance()->getScheduler()->scheduleDelayedTask($task, 20);
+		Main::getInstance()->getScheduler()->scheduleDelayedTask($task, 20);
 	}
 }
 

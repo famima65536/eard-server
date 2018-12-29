@@ -134,6 +134,8 @@ class Account implements MeuHandler {
 		$this->player = $player;
 		return true;
 	}
+
+	/** @return Player */
 	public function getPlayer(){
 		return $this->player;
 	}

@@ -80,7 +80,7 @@ class Connection {
 		}
 
 		// 直前まで、古いほうにログインしてたか
-		$result = self::isLoggedIn($name);
+		$result = self::isLoggedIn($player->getName());
 		if($result === 1){
 			return 1;
 		}else{

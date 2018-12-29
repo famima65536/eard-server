@@ -29,13 +29,13 @@ class Twitter{
 		}
 	}
 	
-    public static function dm($id,$message){
+    public static function dm($id, $message){
 		if(self::CheckOAuth(self::$OAuthData)){
 		/*	idについて
 			ex.@meu32ki->meu32ki(＠無し)
 		*/
         	$connection = new TwitterOAuth(self::$OAuthData["consumer_key"],self::$OAuthData["consumer_secret"],self::$OAuthData["access_token"],self::$OAuthData["access_token_secret"]);
-        	$req = $connection->OAuthRequest("https://api.twitter.com/1.1/direct_messages/new.json","POST",array("screen_name"=>$id,"text"=> mb_substr($massage,0,10000)));
+        	$req = $connection->OAuthRequest("https://api.twitter.com/1.1/direct_messages/new.json","POST",array("screen_name"=>$id,"text"=> mb_substr($message,0,10000)));
 		}
 	}
 	

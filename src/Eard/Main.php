@@ -9,7 +9,7 @@ use pocketmine\event\Listener;
 use pocketmine\plugin\PluginBase;
 use pocketmine\item\Item;
 use pocketmine\permission\Permission;
-use pocketmine\entity\FishingHook;
+//use pocketmine\entity\FishingHook;
 
 # Command
 use pocketmine\command\Command;
@@ -64,6 +64,8 @@ class Main extends PluginBase implements Listener, CommandExecutor{
 			//正常にmysqlにつなげた場合のみ。
 			$this->reconnect();
 		}
+
+		self::$instance = $this;
 
 		# 釣り変更
 		Recipe::changeFishes();
@@ -459,7 +461,7 @@ class Main extends PluginBase implements Listener, CommandExecutor{
 		return false;
 	}
 
-
+	/** @return Main */
 	public static function getInstance(){
 		return self::$instance;
 	}

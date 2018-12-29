@@ -194,6 +194,7 @@ class EarmazonAdminForm extends FormBase {
 				$this->sendModal($title, $content, "よろしい",3+self::NEXT*2, "よろしくない",3);
 			break;
 			case 3+self::NEXT*2:
+				$itemName = ItemName::getNameOf($this->id, $this->meta);
 				$title = "Earmazon管理 > 販売アイテム追加";
 				$result = Earmazon::addBuyUnit($this->id, $this->meta, $this->amount, $this->price, false);
 				$content = $result ? "追加した" : "追加できなかった";
