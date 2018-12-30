@@ -604,7 +604,8 @@ class Account implements MeuHandler {
 		*/
 		public function onUpdateTime(){
 			$timeNow = time();
-			$lastLoginTime = $this->data[2][1];
+			//$lastLoginTime = $this->data[2][1];
+			$lastLoginTime = 0;
 			if($lastLoginTime == 0 or
 				date('N', $lastLoginTime) !== date('N', $timeNow) or
 				date('W', $lastLoginTime) !== date('W', $timeNow)
@@ -618,10 +619,10 @@ class Account implements MeuHandler {
 			}
 		}
 		public function getFirstLoginTime(){
-			return $this->data[2][0];	
+			return $this->data[2][0];
 		}
 		public function getLastLoginTime(){
-			return $this->data[2][1];	
+			return $this->data[2][1];
 		}
 		public function getTotalTime(){
 			return $this->data[2][2];

@@ -4,6 +4,7 @@ namespace Eard\Event;
 
 # Basic
 use Eard\DBCommunication\Place;
+use pocketmine\block\BlockToolType;
 use pocketmine\Player;
 use pocketmine\Server;
 use pocketmine\utils\MainLogger;
@@ -375,13 +376,13 @@ class Event implements Listener{
 							}
 						break;
 						case 2:
-							if(($e->getItem()->isShovel() or $e->getItem()->getId()===Item::DYE) && !AreaProtector::Edit($player, $x, $y, $z)){
+							if(($e->getItem()->getBlockToolType() === BlockToolType::TYPE_SHOVEL or $e->getItem()->getId()===Item::DYE) && !AreaProtector::Edit($player, $x, $y, $z)){
 								$e->setCancelled(true);
 								break;
 							}
 						case 3:
 						case 198:
-							if($e->getItem()->isHoe()){
+							if($e->getItem()->getBlockToolType() === BlockToolType::TYPE_SHEARS){//TODO: hoe
 								if(!AreaProtector::Edit($player, $x, $y, $z)){
 									$e->setCancelled(true);
 								}else if(!$playerData->hasValidLicense(License::FARMER)){

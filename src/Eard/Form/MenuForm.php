@@ -35,17 +35,30 @@ class MenuForm extends FormBase {
 				}
 
 				// メニュー一覧
-				if( Connection::getPlace()->isResourceArea() ){
-					// 資源でライセンス変更できるのは、向こうでライセンス変更するために所持金を持っていくかもしれないから
-					$btar = [
-						["アイテムボックス",2],
-						["エリア転送",18],
-						["ステータス照会",3],
-						["ライセンス",6],
-						["GPS (目的地設定)",22],
-						//["チャットモード変更",20],
-						//["μを送る", 45],
-					];
+				if(($place = Connection::getPlace()) instanceof Place){
+					if($place->isResourceArea()){
+						// 資源でライセンス変更できるのは、向こうでライセンス変更するために所持金を持っていくかもしれないから
+						$btar = [
+							["アイテムボックス",2],
+							["エリア転送",18],
+							["ステータス照会",3],
+							["ライセンス",6],
+							["GPS (目的地設定)",22],
+							//["チャットモード変更",20],
+							//["μを送る", 45],
+						];
+					}else{
+						$btar = [
+							["アイテムボックス",2],
+							["エリア転送",18],
+							["ステータス照会",3],
+							["ライセンス",6],
+							["GPS (座標情報)",4],
+							["土地編集権限設定",11],
+							//["チャットモード変更",20],
+							//["μを送る", 45],
+						];
+					}
 				}else{
 					$btar = [
 						["アイテムボックス",2],
@@ -56,24 +69,27 @@ class MenuForm extends FormBase {
 						["土地編集権限設定",11],
 						//["チャットモード変更",20],
 						//["μを送る", 45],
-					];	
+					];
 				}
+
 				$title = "メニュー";
 			break;
 			case 2:
 				// アイテムボックス
-				if(Connection::getPlace()->isResourceArea()){
-					$player = $playerData->getPlayer();
-					$x = round($player->x);
-					$z = round($player->z);
-					$biomeId = Server::getInstance()->getDefaultLevel()->getBiomeId($x, $z);
-					if($biomeId !== Biome::PLAINS){
-						$this->sendErrorModal("メニュー > アイテムボックス","エーテル波が不安定なため、その場所からはアイテムボックスにアクセスできません。平原バイオーム(転送されてきた場所)に戻ってください。", 1);
-						return false;
-					}
-					if(round($player->y < 50)){
-						$this->sendErrorModal("メニュー > アイテムボックス","電波状況が不安定なため、その場所からはアイテムボックスにアクセスできません。地上に戻ってください。", 1);
-						return false;
+				if(($place = Connection::getPlace()) instanceof Place){
+					if($place->isResourceArea()){
+						$player = $playerData->getPlayer();
+						$x = round($player->x);
+						$z = round($player->z);
+						$biomeId = Server::getInstance()->getDefaultLevel()->getBiomeId($x, $z);
+						if($biomeId !== Biome::PLAINS){
+							$this->sendErrorModal("メニュー > アイテムボックス", "エーテル波が不安定なため、その場所からはアイテムボックスにアクセスできません。平原バイオーム(転送されてきた場所)に戻ってください。", 1);
+							return false;
+						}
+						if(round($player->y < 50)){
+							$this->sendErrorModal("メニュー > アイテムボックス", "電波状況が不安定なため、その場所からはアイテムボックスにアクセスできません。地上に戻ってください。", 1);
+							return false;
+						}
 					}
 				}
 				$this->close();
