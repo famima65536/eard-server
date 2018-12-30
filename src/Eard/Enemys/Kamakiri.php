@@ -253,6 +253,7 @@ class Kamakiri extends Humanoid implements Enemy{
 								AI::lookAt($this, $this->target);
 								AI::jump($this, -0.55, 0, 0.5);
 								$this->walk = false;
+							break;
 							case 1:
 							case 2:
 							case 3:
@@ -264,6 +265,7 @@ class Kamakiri extends Humanoid implements Enemy{
 								$this->walk = true;
 								$this->walkSpeed = 0.35;
 								AI::lookAt($this, $this->target);
+							break;
 							case 5:
 							case 6:
 							case 7:
@@ -293,6 +295,7 @@ class Kamakiri extends Humanoid implements Enemy{
 							case 0:
 								AI::lookAt($this, $this->target);
 								$this->walk = false;
+							break;
 							case 1:
 							case 2:
 							case 3:
@@ -303,6 +306,7 @@ class Kamakiri extends Humanoid implements Enemy{
 							case 4:
 								$this->walk = false;
 								AI::lookAt($this, $this->target);
+							break;
 							case 5:
 							case 6:
 							case 7:

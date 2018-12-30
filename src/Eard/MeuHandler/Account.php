@@ -4,15 +4,14 @@ namespace Eard\MeuHandler;
 
 # Basic
 use pocketmine\Player;
-use pocketmine\Server;
 use pocketmine\utils\MainLogger;
 use pocketmine\entity\Effect;
 
 # Eard
 use Eard\DBCommunication\DB;
+use Eard\DBCommunication\Mail;
 use Eard\Event\ChatManager;
 use Eard\Form\Form;
-use Eard\MeuHandler\Account\Mail;
 use Eard\MeuHandler\Account\ItemBox;
 use Eard\MeuHandler\Account\License\License;
 use Eard\MeuHandler\Account\License\Costable;
@@ -162,6 +161,7 @@ class Account implements MeuHandler {
 			break;
 			case $this->hasValidLicense(License::HUNTER, 3):
 				$player->addEffect(Effect::getEffect(Effect::DAMAGE_RESISTANCE)->setAmplifier(1)->setDuration(INT32_MAX-1));
+			break;
 			case $this->hasValidLicense(License::HUNTER, 2):
 				$player->setMaxHealth(40);
 				$player->setHealth(40);
@@ -733,9 +733,9 @@ class Account implements MeuHandler {
 
 	/**
 	*	@param String なまえ
-	*	@param int | 破壊対象の座標を AreaProtector::calculateSectionNo に突っ込んで得られるxの値
-	*	@param int | 破壊対象の座標を AreaProtector::calculateSectionNo に突っ込んで得られるzの値
-	*	@return bool | こわせるならtrue つかえるならtrue
+	*	@param int 破壊対象の座標を AreaProtector::calculateSectionNo に突っ込んで得られるxの値
+	*	@param int 破壊対象の座標を AreaProtector::calculateSectionNo に突っ込んで得られるzの値
+	*	@return bool こわせるならtrue つかえるならtrue
 	*/
 	public function allowEdit($name, $sectionNoX, $sectionNoZ): bool{
 		$name = strtolower($name);
@@ -1008,7 +1008,7 @@ class Account implements MeuHandler {
  	*	データをエンコードし、格納する。
     *	二回目以降。
     *	「レポートを書く」ときは特に何もなしだが「レポートを書いてゲームをやめる」場合はメモリ節約にご協力
-    *	@param bool | quitEventのときだけ、引数にtrueいれるべし。
+    *	@param bool quitEventのときだけ、引数にtrueいれるべし。
     *	@return bool ほぞんできたかどうか
     */
 	public function updateData($quit = false){

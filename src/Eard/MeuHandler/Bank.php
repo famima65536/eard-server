@@ -812,7 +812,8 @@ class Bank {
 
 	/**
 	*	預金準備率を設定する。
-	*@param 準備率（百分率[%]で）
+	* @param int $amount 準備率（百分率[%]で）
+	 * @return bool
 	*/
 	public static function setRatio($amount): bool{
 		$amount = $amount / 100;
@@ -824,6 +825,7 @@ class Bank {
 	*	政策金利を設定する。
 	*@param int 金利（百分率[%])
 	*@param array [0] 1週間, [1] 1か月, [2] 2か月
+	 * @return bool
 	*/
 	public static function setRates($amount, $key): bool{
 		self::$rates[$key] = $amount / 100;
@@ -834,6 +836,7 @@ class Bank {
 	*	中央銀行当座預金の残高を調整する。
 	*@param int 調節したい額
 	*@param int 0 => 増加, 1 => 減少させる
+	 * @return bool
 	*/
 	public static function controlCAB(int $amount, int $type): bool{
 		if(!$type){//増加させる

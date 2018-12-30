@@ -380,6 +380,7 @@ class Event implements Listener{
 								$e->setCancelled(true);
 								break;
 							}
+						break;
 						case 3:
 						case 198:
 							if($e->getItem()->getBlockToolType() === BlockToolType::TYPE_SHEARS){//TODO: hoe

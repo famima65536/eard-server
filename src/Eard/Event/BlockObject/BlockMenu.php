@@ -3,7 +3,7 @@ namespace Eard\Event\BlockObject;
 
 
 # TextParticle
-use pocketmine\entity\Item as ItemEntity;
+use pocketmine\entity\object\ItemEntity;
 use pocketmine\entity\Entity;
 use pocketmine\item\Item;
 use pocketmine\item\ItemFactory;
@@ -13,7 +13,7 @@ use pocketmine\math\Vector3;
 use pocketmine\utils\UUID;
 
 # Eard
-use Eard\Account;
+use Eard\MeuHandler\Account;
 
 
 trait BlockMenu {

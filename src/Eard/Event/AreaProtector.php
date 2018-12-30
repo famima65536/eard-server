@@ -484,7 +484,7 @@ class AreaProtector{
 	/**
 	*	@param Int UniqueNo
 	*	@param Int playerのY値
-	*	@return Array SectionData
+	*	@return array SectionData
 	*/
 	public static function getNewSectionData($uniqueNo, $baseY){
 		$sectionData = [
@@ -498,7 +498,7 @@ class AreaProtector{
 
 	/**
 	*	土地を買う際の、決済処理を行う。決済が完了したらgiveSectionを実行する。
-	*	@param Player | Playerオブジェクト
+	*	@param Player Playerオブジェクト
 	*	@param int | AreaProtector::calculateSectionNo で得られるxの値
 	*	@param int | AreaProtector::calculateSectionNo で得られるzの値
 	*	@return bool
@@ -559,10 +559,10 @@ class AreaProtector{
 	/**
 	*	土地を買う際の、登録の処理を行う。データに保存する。
 	*	registerと分けたのは、土地をもらうコマンドを作るため。
-	*	@param Account | PlayerData
-	*	@param int | calculateSectionNo でえられるxの値
-	*	@param int | calculateSectionNo でえられるzの値
-	*	@return bool | 成功していたらtrueを返す
+	*	@param Account $playerData
+	*	@param int calculateSectionNo でえられるxの値
+	*	@param int calculateSectionNo でえられるzの値
+	*	@return bool 成功していたらtrueを返す
 	*/
 	public static function giveSection(Account $playerData, $sectionNoX, $sectionNoZ){
 		$uniqueNo = $playerData->getUniqueNo();
@@ -622,10 +622,10 @@ class AreaProtector{
 
 	/**
 	*	土地が販売可能な状態か調べる。販売可能な場合は1以上の整数を返す。
-	*	@param Account | PlayerData
-	*	@param int | calculateSectionNo でえられるxの値
-	*	@param int | calculateSectionNo でえられるzの値
-	*	@return int | その土地の価格 0が帰る場合は、販売できないということに。
+	*	@param Account $playerData
+	*	@param int calculateSectionNo でえられるxの値
+	*	@param int calculateSectionNo でえられるzの値
+	*	@return int その土地の価格 0が帰る場合は、販売できないということに。
 	*/
 	//新しい関数に変更
 /*	public static function getTotalPrice(Account $playerData, $sectionNoX, $sectionNoZ){
@@ -673,8 +673,8 @@ class AreaProtector{
 
 	/**
 	*	設定：購入可能なセクションの数を$amount個に変更する
-	*	@param int | 個数 (default:1000)
-	*	@return bool | 設定できればtrue
+	*	@param int 個数 (default:1000)
+	*	@return bool 設定できればtrue
 	*/
 	public static function setAffordableSection($amount){
 		$increase = $amount - self::$affordableSection;//マイナスかもしれない
@@ -744,7 +744,7 @@ class AreaProtector{
 
 	/**
 	*	セクションごとにそんざいするでーた。書き込む。
-	*	@return bool | 保存ができればtrue
+	*	@return bool 保存ができればtrue
 	*/
 	private static function saveSectionFile($sectionNoX, $sectionNoZ, $data){
 		$path = DataIO::getPath()."sections/";
