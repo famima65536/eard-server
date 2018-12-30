@@ -633,7 +633,7 @@ class Account implements MeuHandler {
 		private $inTime = 0;
 
 	/**
-	*	住所。所持している土地のうち、array[]の形で一つだけセットすることができる。
+	*	住所。所持している土地のうち、 array[]の形で一つだけセットすることができる。
 	*	@param int AreaProtector::calculateSectionNo で得られるxの値
 	*	@param int AreaProtector::calculateSectionNo で得られるzの値
 	*/

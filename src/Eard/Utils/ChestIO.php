@@ -31,7 +31,7 @@ class ChestIO extends BaseInventory {
 		↓                  ↓
 		ContainerInventory ChestIO
 		↓                ↓     ↓
-		Chestinventory ItemBox Shop
+		ChestInventory ItemBox Shop
 	*/
 	
 	public function __construct($player, $size = 27){
