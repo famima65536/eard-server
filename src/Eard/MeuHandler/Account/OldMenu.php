@@ -175,7 +175,7 @@ class Menu implements ChatInput {
 					];	
 				}
 			break;
-/*	アイテムボックス　| 1
+/*	アイテムボックス | 1
 */
 			case 1:
 				if($isFirst){
@@ -221,7 +221,7 @@ class Menu implements ChatInput {
 				];
 				if(!$ownerNo){
                     $price = AreaProtector::getTotalPrice($playerData, $sectionNoX, $sectionNoZ);
-                    $ar[] = ["§7§l　価格§r §f{$price}",false];
+                    $ar[] = ["§7§l 価格§r §f{$price}",false];
 					$ar[] = ["この土地を買う",4];
 				}
 				if(!$ownerNo && $playerData->hasValidLicense(License::GOVERNMENT_WORKER, License::RANK_GENERAL)){
@@ -513,7 +513,7 @@ class Menu implements ChatInput {
 			$pd = [];
 			$cnt = 0;
 			foreach($ar as $data){
-				if($data[1]){//falseでなかったら　メニュー項目
+				if($data[1]){//falseでなかったら メニュー項目
 					$pd[$cnt] = $data[1];
 					$cnt ++;
 				}
@@ -574,8 +574,8 @@ class Menu implements ChatInput {
 			$key ++;
 		}*/
 		// echo "SEND ITEMS\n";
-		$key = 1; //　メニューアイテムのぶん
-		$count = $count + 1; //　メニューアイテムのぶん
+		$key = 1; // メニューアイテムのぶん
+		$count = $count + 1; // メニューアイテムのぶん
 		$windowid = ContainerSetContentPacket::SPECIAL_INVENTORY;// プレイヤーの手持ちインベントリ、windowidは0
 		$id = self::$selectItem;
 

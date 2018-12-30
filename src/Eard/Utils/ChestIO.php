@@ -29,9 +29,9 @@ class ChestIO extends BaseInventory {
 		↓
 		BaseInventory      
 		↓                  ↓
-		ContainerInventory　ChestIO
-		↓　　　　　　　　　　　　　　　　↓     ↓
-		Chestinventory ItemBox　Shop
+		ContainerInventory ChestIO
+		↓                ↓     ↓
+		Chestinventory ItemBox Shop
 	*/
 	
 	public function __construct($player, $size = 27){
@@ -111,7 +111,7 @@ class ChestIO extends BaseInventory {
 		$pk->flags = UpdateBlockPacket::FLAG_NONE;//読み込まれていないチャンクに送り付ける時は注意が必要
 		$who->dataPacket($pk);
 
-		// NBT送る(チェスト開けたときのインベントリ名変更)　from pocketmine\tile\spawnable
+		// NBT送る(チェスト開けたときのインベントリ名変更) from pocketmine\tile\spawnable
 		if($name = $this->getName()){
 			$nbt = new LittleEndianNBTStream();
 			$c = new CompoundTag("", [

@@ -25,7 +25,7 @@ interface BlockObject {
 	public function Tap(Player $player);
 
 	/**
-	*	ブロック長押しされた時　キャンセルは不可
+	*	ブロック長押しされた時 キャンセルは不可
 	*	@param Item そのブロックをタップしたアイテム
 	*	@return bool
 	*/

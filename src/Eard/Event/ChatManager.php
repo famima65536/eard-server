@@ -102,7 +102,7 @@ class ChatManager {
 			case self::CHATMODE_PLAYER:
 				if(!isset($target)) $target = $playerData->getChatTarget();
 				if($target && $target->isOnline()){
-					//　指定したターゲットがいまだイオンラインであったら
+					// 指定したターゲットがいまだイオンラインであったら
 					$msg = Chat::Format($player->getDisplayName(), "§6個人(".$target->getDisplayName().")", "§f".$message);
 					$consoleMsg = $msg;
 					$target->sendMessage($msg);

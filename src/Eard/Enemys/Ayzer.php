@@ -172,7 +172,7 @@ class Ayzer extends Humanoid implements Enemy{
 		return new Vector3(0, 0.7, 0);
 	}
 
-	//スポーンするバイオームの配列　[ID => true, ...]
+	//スポーンするバイオームの配列 [ID => true, ...]
 	public static function getBiomes() : array{
 		//コピペ用全種類を置いておく
 		return [

@@ -39,7 +39,7 @@ class Earmazon {
 		foreach($itemListById as $id => $m){
 			foreach($m as $meta => $name){
 				$firstchar = mb_substr($name, 0, 1);
-				// ↓　itemNameのうち、名前が（で始まっているものは、設置専用のブロック。tile:で始まるものも同じなので、のぞいておく必要がある
+				// ↓ itemNameのうち、名前が（で始まっているものは、設置専用のブロック。tile:で始まるものも同じなので、のぞいておく必要がある
 				if( $firstchar !== "t" || $firstchar !== "("){
 					$sql = "INSERT INTO earmazon_itemstorage (id, meta, amount) VALUES ('{$id}', '{$meta}', '0'); ";
 					$result = $db->query($sql);

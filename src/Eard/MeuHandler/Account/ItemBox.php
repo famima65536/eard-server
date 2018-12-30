@@ -17,9 +17,9 @@ class ItemBox extends ChestIO {
 		↓
 		BaseInventory      
 		↓                  ↓
-		ContainerInventory　ChestIO
-		↓　　　　　　　　　　　　　　　　↓     ↓
-		Chestinventory ItemBox　Shopのなかでつかう
+		ContainerInventory ChestIO
+		↓                ↓     ↓
+		Chestinventory ItemBox Shopのなかでつかう
 	*/
 	
 	public function __construct($playerData){

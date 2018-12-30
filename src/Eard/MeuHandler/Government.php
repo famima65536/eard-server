@@ -156,7 +156,7 @@ class Government implements MeuHandler {
 			return false;
 		}
 
-		self::$CentralBankMeu　= Meu::get($newLeft, self::getInstance());
+		self::$CentralBankMeu = Meu::get($newLeft, self::getInstance());
 		self::$CentralBankFirst = $amount;
 		return true;
 	}

@@ -20,7 +20,7 @@ class BlockObjectManager {
 	オブジェクトにたどりつくためのキーを入れておくのが $index
 
 	セーブ時 $index 書く $blocks をセーブしファイルに書き込む。
-	ロード時 $index読む $blocks　読まない
+	ロード時 $index読む $blocks 読まない
 	blocks タップ時に、indexをissetして、あればblocksに展開してから open する
 */
 
@@ -65,7 +65,7 @@ class BlockObjectManager {
 	}
 
 	/**
-	*	ブロック長押しされた時　キャンセルは不可
+	*	ブロック長押しされた時 キャンセルは不可
 	*	@param $x, $y, $z | 座標
 	*	@param Item そのブロックをタップしたアイテム
 	*	@return bool
@@ -194,7 +194,7 @@ class BlockObjectManager {
 				}
 			}
 		}else{
-			// 0　...インデックスが張られていない、オブジェクトがない
+			// 0 ...インデックスが張られていない、オブジェクトがない
 			return null;
 		}
 	}
@@ -233,7 +233,7 @@ class BlockObjectManager {
 				/*
 					// objectDataの構造
 					array => [
-						0 => int,　($objNo)
+						0 => int, ($objNo)
 						1 => array => [
 							ばばばばば
 						]

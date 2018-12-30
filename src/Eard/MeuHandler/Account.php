@@ -37,7 +37,7 @@ class Account implements MeuHandler {
 		0, // 0 no 二回目の入室以降から使える
 		0, // 1 所持する金
 		[0,0,0,0], // 2 [初回ログイン,最終ログイン,ログイン累計時間,日数]
-		[], // 3 じゅうしょ 例 [12, 13]　みたいな
+		[], // 3 じゅうしょ 例 [12, 13] みたいな
 		[], // 4 所持するせくしょんず
 		[], // 5 らいせんす
 		[], // 6 土地の共有設定
@@ -53,7 +53,7 @@ class Account implements MeuHandler {
 			$accounts = [
 				$name => new Account,
 				$name => new Account,
-				$name => new Account　
+				$name => new Account
 			]
 		}
 	*/
@@ -966,7 +966,7 @@ class Account implements MeuHandler {
 					MainLogger::getLogger()->notice("§aAccount: {$name} data has been loaded");
 					return true;
 				}else{
-					//れつがみつからなかった ＝　データがなかった初回
+					//れつがみつからなかった ＝ データがなかった初回
 					if(!$isfromweb){ //webからの場合はデータを作らない
 						$this->saveData();
 					}
@@ -993,7 +993,7 @@ class Account implements MeuHandler {
 			$txtdata = base64_encode($data);
 	    	$sql = "INSERT INTO data (name, base64, date) VALUES ('{$name}', '{$txtdata}', now());";
 	    	DB::get()->query($sql);
-			MainLogger::getLogger()->notice("§bAccount: {$name} data saved　- first time");
+			MainLogger::getLogger()->notice("§bAccount: {$name} data saved - first time");
 
 			$this->data = self::$newdata;//初回データを読み込む
 

@@ -134,7 +134,7 @@ class animation extends Task {
 		$player->setDataProperty(Entity::DATA_FLAG_IMMOBILE, Entity::DATA_TYPE_BYTE, 1);
 		$player->despawnFromAll();
 
-		//　だみーぷれいやーだす
+		// だみーぷれいやーだす
 		// NPC::summon($s->getLevel(), $s->x, $s->y, $s->z, EnemyRegister::loadSkinData('Anna'), 'Standard_Custom', $a[0]);
 		$skin = $player->getSkin();
 		$nbt = new CompoundTag("", [

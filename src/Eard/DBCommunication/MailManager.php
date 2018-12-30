@@ -30,7 +30,7 @@ class MailManager {
     * Key       : str(32) メールごとに割り当てられた一意なキー (複数一斉送信の場合にこれを見て確認する)
     * Subject      : str(50)  見出し 256バイト
     * Body         : str(300) 本文 65536バイト
-    * Date         :　timestamp
+    * Date         : timestamp
     */
 
 

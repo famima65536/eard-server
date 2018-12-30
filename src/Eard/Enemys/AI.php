@@ -72,7 +72,7 @@ use pocketmine\network\mcpe\protocol\AnimatePacket;
 use Eard\MeuHandler\Account;
 
 /**AIとして使う関数を簡単に呼び出せるように置いておく場所
-　* abstractだけど継承して使うものではない
+ * abstractだけど継承して使うものではない
  */
 abstract class AI{
 
@@ -195,7 +195,7 @@ abstract class AI{
 
 	/**
 	 * 曲がる方向を取得
-	 *　負の方向なら-1,正の方向なら+1,真っ直ぐなら0を返す
+	 * 負の方向なら-1,正の方向なら+1,真っ直ぐなら0を返す
 	 */
 	public static function getCurve($entity, $target){
 		$x1 = $entity->x;

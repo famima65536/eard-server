@@ -241,7 +241,7 @@ class ItemExchanger implements BlockObject, ChatInput {
 				["交換相手を待機中です……", false],
 			];
 		break;
-		case 20: //　あいてむもどす とりひき きゃんせる
+		case 20: // あいてむもどす とりひき きゃんせる
 			$itemText = $this->getAsText($player);
 			$this->backItem(Account::get($player));
 			$ar = [
@@ -252,7 +252,7 @@ class ItemExchanger implements BlockObject, ChatInput {
 			];
 		break;
 
-/*		case 21:　//交換後のページ
+/*		case 21: //交換後のページ
 			$ar = [
 				["アイテム交換", false],
 				["完了しました", false],

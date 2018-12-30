@@ -164,7 +164,7 @@ class FreemarketForm extends FormBase {
 				//todo 選択し直すの確認
 				$this->price = $this->lastData[1] ?? 1;
 				$itemname = ItemName::getNameOf($this->item->getId(), $this->item->getDamage());
-				$title = "フリマ > 出品する > アイテム >　確認";
+				$title = "フリマ > 出品する > アイテム > 確認";
 				$buttons[] = ['text' => "OK"];
 				$cache[] = self::REQUEST_SELL+self::NEXT*4;
 				$buttons[] = ['text' => "戻る"];

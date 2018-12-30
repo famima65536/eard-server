@@ -67,7 +67,7 @@ class Meu {
 	/**
 	*	分割する。playerの全額面のなかから、一部だけを切り取りたい時に。
 	*	@param int | 取り出したいmeu
-	*	@return Meu　or null
+	*	@return Meu or null
 	*/
 	public function spilit($spilitAmount){
 		if($spilitAmount <= $this->amount){

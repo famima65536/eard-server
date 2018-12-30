@@ -31,7 +31,7 @@ class Bank {
 		会社も借りられるようにする予定なのでuniquenoをつかうことに。いまんとこmeuHandlerでなく、Accountのみの対応。
 
 		普通預金口座を作るには
-		「生活ライセンス　一般以上」「500μ以上のデポジット」がひつよう
+		「生活ライセンス 一般以上」「500μ以上のデポジット」がひつよう
 
 		長期借入は1アカウントにつき1回しかできない
 		プレイヤーは、新たに借りたい場合は、以前借りていたものを返してからにしないといけない
@@ -601,7 +601,7 @@ class Bank {
 	*	@param Account
 	*	@param int お支払い金額
 	* @param int お預り金額
-	* @param int 取引の種類(摘要)　詳しくは self::getReason() を参照
+	* @param int 取引の種類(摘要) 詳しくは self::getReason() を参照
 	 * @return string
 	*/
 	public static function writeBankBook(Account $playerData, int $pay, int $deposit, int $reason): string{
