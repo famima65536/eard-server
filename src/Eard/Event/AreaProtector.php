@@ -599,6 +599,7 @@ class AreaProtector{
 	/**
 	*	政府が自身で土地をおさえる場合には、「販売可能な数」からはひかない。
 	*	@param Player 買ったコマンドを使った人
+	 * @return bool
 	*/
 	public static function registerSectionAsGovernment($player, $sectionNoX, $sectionNoZ){
 		$uniqueNo = 100000;
@@ -725,7 +726,7 @@ class AreaProtector{
 
 	/**
 	*	セクションごとにそんざいするでーた。読み込む。
-	*	@return array or false
+	*	@return array | false
 	*/
 	private static function readSectionFile($sectionNoX, $sectionNoZ){
 		$path = DataIO::getPath()."sections/";

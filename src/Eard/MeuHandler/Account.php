@@ -61,7 +61,7 @@ class Account implements MeuHandler {
 	/**
 	*	Instance シングルトンパターン
 	*	これをやることでどこからでもアクセスできるようにしている
-	*	@param Player | $playerオブジェクト
+	*	@param Player $player オブジェクト
 	*	@return Account | $playerData
 	*/
 	public static function get(Player $player){
@@ -76,8 +76,8 @@ class Account implements MeuHandler {
 
 	/**
 	*	名前から、上記のオブジェクトを取得する。
-	*	@param String | name
-	*  @param bool | isfromweb 
+	*	@param String name
+	*  @param bool isfromweb
 	*	@return Account or null
 	*/
 	public static function getByName($name,$isfromweb = false){
@@ -127,7 +127,7 @@ class Account implements MeuHandler {
 	/**
 	*	Q, なぜconstructでないのか？
 	*	A, プレイヤーがでて、戻ってきたときのため。出るとplayerオブジェクトが一回破棄されてしまうため新しく作られたplayerObjectをセットしなおす必要があるから
-	*	@param Player | プレイヤーオブジェクト
+	*	@param Player $player プレイヤーオブジェクト
 	*	@return bool
 	*/
 	public function setPlayer(Player $player){
@@ -300,7 +300,7 @@ class Account implements MeuHandler {
 
 	/**
 	*	ここに案内しろ
-	*	@param null | String $playerName | array[$sectionNoX, $sectionNoZ]
+	*	@param null | String $target | array[$sectionNoX, $sectionNoZ]
 	*	@param bool $isLivingArea
 	*/
 	public function setNavigating($target, bool $isLivingArea){
@@ -357,7 +357,7 @@ class Account implements MeuHandler {
 	/**
 	*	プレイヤーのチャットをどこに送るか、記録する。詳しくは class::Chatを参照。
 	*	四種の場所に対し送ることができる。
-	*	@param int | ChatMode
+	*	@param int ChatMode
 	*	@return bool
 	*/
 	public function setChatMode($chatmode){
@@ -421,7 +421,7 @@ class Account implements MeuHandler {
 
 	/**
 	*	tellのためのもの。対象となるオブジェクト
-	*	@param Player | 送る対象となるプレイヤー
+	*	@param Player $player 送る対象となるプレイヤー
 	*	@return bool
 	*/
 	public function setChatTarget(Player $player){
@@ -445,7 +445,7 @@ class Account implements MeuHandler {
 
 	/**
 	*	所持ミューをMeuにして詰めて返す。Meuの扱い方についてはclass::Meuにて。
-	*	@return Meu | 所持金料などのデータ
+	*	@return Meu 所持金料などのデータ
 	*/
 	// @meuHandler
 	public function getMeu(){
@@ -512,8 +512,8 @@ class Account implements MeuHandler {
 
 	/**
 	*	そのライセンスを持っていれば返す
-	*	@param int | 各ライセンスに割り当てられた番号
-	*	@return bool | 有効期限の範囲内ならtrue
+	*	@param int 各ライセンスに割り当てられた番号
+	*	@return bool 有効期限の範囲内ならtrue
 	*/
 	public function getLicense($licenseNo){
 		return isset($this->licenses[$licenseNo]) ? $this->licenses[$licenseNo] : null;
@@ -544,7 +544,7 @@ class Account implements MeuHandler {
 	/**
 	*	新しいライセンスを得る際、コストに問題がないかを計算してくれる
 	*	そのライセンスを付けられるか、コストの面から見る
-	*	@return bool | つけられるならtrue つけられないならfalse
+	*	@return bool つけられるならtrue つけられないならfalse
 	*/
 	public function canAddNewLicense(License $license){
 		$residence = $this->getLicense(License::RESIDENCE);
@@ -633,8 +633,8 @@ class Account implements MeuHandler {
 
 	/**
 	*	住所。所持している土地のうち、array[]の形で一つだけセットすることができる。
-	*	@param int | AreaProtector::calculateSectionNo で得られるxの値
-	*	@param int | AreaProtector::calculateSectionNo で得られるzの値 
+	*	@param int AreaProtector::calculateSectionNo で得られるxの値
+	*	@param int AreaProtector::calculateSectionNo で得られるzの値
 	*/
 	public function setAddress($sectionNoX, $sectionNoZ){
 		$this->data[3] = [$sectionNoX, $sectionNoZ];
@@ -659,9 +659,9 @@ class Account implements MeuHandler {
 	/**
 	*	所持しているセクションを追加する。
 	*	※処理は、AreaProtectorからのみ行うこと。 20170701
-	*	@param int | 座標を AreaProtector::calculateSectionNo に突っ込んで得られるxの値
-	*	@param int | 座標を AreaProtector::calculateSectionNo に突っ込んで得られるzの値
-	*	@param int | その土地に設定する権限レベル。詳しくはAddSharePlayerの候にて。
+	*	@param int 座標を AreaProtector::calculateSectionNo に突っ込んで得られるxの値
+	*	@param int 座標を AreaProtector::calculateSectionNo に突っ込んで得られるzの値
+	*	@param int その土地に設定する権限レベル。詳しくはAddSharePlayerの候にて。
 	*	@return bool
 	*/
 	public function addSection($sectionNoX, $sectionNoZ, $editAuth = 4, $exeAuth = 4){
@@ -700,8 +700,8 @@ class Account implements MeuHandler {
 
 	/**
 	*	他プレイヤーが自分の土地を壊せるようになる。土地共有。
-	*	@param int | 対象プレイヤーの、AccountのgetUniqueNo()でえられる値
-	*	@param int | 実行・編集 権限レベル
+	*	@param int 対象プレイヤーの、AccountのgetUniqueNo()でえられる値
+	*	@param int 実行・編集 権限レベル
 	*	@return bool
 	*/
 	public function setAuth($name, $editAuth): bool{
@@ -757,6 +757,7 @@ class Account implements MeuHandler {
 
 	/**
 	*	@param array $itemArray [ [$id,$meta,$stack], [$id,$meta,$stack]...]
+	*   @return bool
 	*/
 	public function setItemArray($itemArray){
 		// $itemArrayの要素数に注意して。27以上だとあけられないかも
@@ -765,7 +766,8 @@ class Account implements MeuHandler {
 	}
 
 	public function getItemArray(){
-		return $this->data[7];
+		return [];
+		//return $this->data[7];
 	}
 
 	/**

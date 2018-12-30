@@ -3,6 +3,7 @@ namespace Eard\Event;
 
 
 # Basic
+use Eard\DBCommunication\Place;
 use pocketmine\Player;
 use pocketmine\Server;
 use pocketmine\utils\MainLogger;
@@ -116,7 +117,10 @@ class Event implements Listener{
 	public function J(PlayerJoinEvent $e){
 		$player = $e->getPlayer();
 		$e->setJoinMessage(Chat::getJoinMessage($player->getDisplayName()));
-		Connection::getPlace()->recordLogin($player->getName()); //　オンラインテーブルに記録
+		if(($place = Connection::getPlace()) instanceof Place){
+			$place->recordLogin($player->getName()); //オンラインテーブルに記録
+		}
+
 		Account::get($player)->applyEffect();
 
 		$player->sendMessage(Chat::SystemToPlayer("§eスニーク状態で、素手でどこかを長押しすると「ヘルプ」が出るぞ！困ったら使ってみよう！"));
@@ -147,8 +151,9 @@ class Event implements Listener{
 			}
 			*/
 
-			//　オンラインテーブルから記録消す
-			Connection::getPlace()->recordLogout($player->getName());
+			if(($place = Connection::getPlace()) instanceof Place){
+				$place->recordLogout($player->getName()); //オンラインテーブルから記録消す
+			}
 
 			// 退出時メッセージ
 			$msg = $playerData->isNowTransfering() ? Chat::getTransferMessage($player->getDisplayName()) : Chat::getQuitMessage($player->getDisplayName());
@@ -290,26 +295,28 @@ class Event implements Listener{
 
 			/*	生活区域
 			*/
-			if(Connection::getPlace()->isLivingArea()){
-				// できないばあい
-				if(!AreaProtector::Use($playerData, $x, $y, $z, $blockId)){
-					$e->setCancelled(true);
-				// できるばあい
-				}else{
-					$r = BlockObjectManager::tap($block, $player);
-					$e->setCancelled( $r );
-				}
+			if(($place = Connection::getPlace()) instanceof Place){
+				if($place->isLivingArea()){
+					// できないばあい
+					if(!AreaProtector::Use($playerData, $x, $y, $z, $blockId)){
+						$e->setCancelled(true);
+						// できるばあい
+					}else{
+						$r = BlockObjectManager::tap($block, $player);
+						$e->setCancelled( $r );
+					}
 
-			/*	資源区域
-			*/
-			}else{
-				if(!AreaProtector::canActivateInResource($blockId)){
-					$placename = Connection::getPlace()->getName();
-					$player->sendMessage(Chat::SystemToPlayer("§e{$placename}ではそのブロックの使用が制限されています。生活区域でしか使えません！"));
-					$e->setCancelled(true);
+					/*	資源区域
+					*/
 				}else{
-					$r = BlockObjectManager::tap($block, $player);
-					$e->setCancelled( $r );
+					if(!AreaProtector::canActivateInResource($blockId)){
+						$placename = Connection::getPlace()->getName();
+						$player->sendMessage(Chat::SystemToPlayer("§e{$placename}ではそのブロックの使用が制限されています。生活区域でしか使えません！"));
+						$e->setCancelled(true);
+					}else{
+						$r = BlockObjectManager::tap($block, $player);
+						$e->setCancelled( $r );
+					}
 				}
 			}
 

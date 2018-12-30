@@ -215,7 +215,7 @@ class Connection {
 	/**
 	*	urlにアクセスして、得られたjsonをarrayにして返す
 	*	@param String URL (http://からはじまる)
-	*	@return Array
+	*	@return array
 	*/
 	private static function curlUnit($url){
 		$curl = curl_init($url);

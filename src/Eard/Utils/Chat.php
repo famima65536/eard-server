@@ -3,16 +3,17 @@ namespace Eard\Utils;
 
 
 use Eard\DBCommunication\Connection;
+use Eard\DBCommunication\Place;
 
 
 class Chat{
 
 
 	/**
-	*	@param string | 発信者の名前
-	*	@param string | 対象者 or message
-	*	@param string | message
-	*	@return string | 最終的に送るメッセージ 
+	*	@param string 発信者の名前
+	*	@param string 対象者 or message
+	*	@param string message
+	*	@return string 最終的に送るメッセージ
 	*/
 	public static function Format($arg1, $arg2 = "", $arg3 = ""){
 		$out = "{$arg1} §7>";
@@ -25,8 +26,8 @@ class Chat{
 	}
 
 	/**
-	*	@param string | message
-	*	@return string | 最終的に送るメッセージ 
+	*	@param string message
+	*	@return string 最終的に送るメッセージ
 	*/
 	public static function SystemToPlayer($arg1){
 		$out = "§8システム §7> §6個人 §7> {$arg1}";
@@ -40,17 +41,20 @@ class Chat{
 	}
 
 	/**
-	*	@param string | プレイヤー名
-	*	@return string | 最終的にできた参加時メッセージ
+	*	@param string プレイヤー名
+	*	@return string 最終的にできた参加時メッセージ
 	*/
 	public static function getJoinMessage($name){
-		$placeName = Connection::getPlace()->getName();
-		return self::System("§bお知らせ", "§f{$name} §7がEardの {$placeName} にやって来た");
+		if(($place = Connection::getPlace()) instanceof Place){
+			$placeName = $place->getName();
+			return self::System("§bお知らせ", "§f{$name} §7がEardの {$placeName} にやって来た");
+		}
+		return "";
 	}
 
 	/**
-	*	@param string | プレイヤー名
-	*	@return string | 最終的にできた退出時メッセージ
+	*	@param string プレイヤー名
+	*	@return string 最終的にできた退出時メッセージ
 	*/
 	public static function getQuitMessage($name){
 		return self::System("§bお知らせ", "§f{$name} §7が地球へ戻っていった");

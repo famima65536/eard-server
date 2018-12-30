@@ -366,6 +366,7 @@ class Bank {
 	* @param int 返済したい額(金利分を計算しなくてもOK)
 	* @param int	0 = 一括払い, 1 = 分割払い
 	* @param array self::exsitBankDebit()で返されるarray
+	 * @return bool
 	*/
 	public static function repay(Account $playerData, int $amount, int $type, array $data): bool{
 
@@ -450,6 +451,7 @@ class Bank {
 	*	オフラインでは使用不可
 	*	@param MeuHandler
 	*	@param int 初期デポジットの量
+	 * @return bool
 	*/
 	public static function createBankAccount(Account $playerData, int $amount): bool{
 		if(!$playerData->isOnline()){
@@ -600,6 +602,7 @@ class Bank {
 	*	@param int お支払い金額
 	* @param int お預り金額
 	* @param int 取引の種類(摘要)　詳しくは self::getReason() を参照
+	 * @return string
 	*/
 	public static function writeBankBook(Account $playerData, int $pay, int $deposit, int $reason): string{
 		$uniqueNo = $playerData->getUniqueNo();

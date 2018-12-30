@@ -21,8 +21,8 @@ use pocketmine\level\Level;
 use pocketmine\level\Position;
 use pocketmine\level\Location;
 use pocketmine\level\Explosion;
-use pocketmine\level\MovingObjectPosition;
-use pocketmine\level\format\FullChunk;
+//use pocketmine\level\MovingObjectPosition;
+//use pocketmine\level\format\FullChunk;
 use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\nbt\tag\DoubleTag;
 use pocketmine\nbt\tag\FloatTag;
@@ -41,19 +41,19 @@ use pocketmine\level\particle\FlameParticle;
 use pocketmine\level\particle\HappyVillagerParticle;
 use pocketmine\level\particle\FloatingTextParticle;
 use pocketmine\level\sound\LaunchSound;
-use pocketmine\level\sound\ExplodeSound;
+//use pocketmine\level\sound\ExplodeSound;
 use pocketmine\level\sound\EndermanTeleportSound;
-use pocketmine\level\sound\SplashSound;
+//use pocketmine\level\sound\SplashSound;
 use pocketmine\level\sound\AnvilFallSound;
 
 use pocketmine\entity\Attribute;
 use pocketmine\entity\Effect;
 use pocketmine\entity\Entity;
-use pocketmine\entity\Egg;
-use pocketmine\entity\Creeper;
-use pocketmine\entity\Skeleton;
-use pocketmine\entity\PigZombie;
-use pocketmine\entity\Ghast;
+//use pocketmine\entity\Egg;
+//use pocketmine\entity\Creeper;
+//use pocketmine\entity\Skeleton;
+//use pocketmine\entity\PigZombie;
+//use pocketmine\entity\Ghast;
 use pocketmine\entity\Human;
 use pocketmine\entity\Animal;
 use pocketmine\entity\Projectile;
@@ -67,7 +67,7 @@ use pocketmine\event\entity\ProjectileHitEvent;
 use pocketmine\math\AxisAlignedBB;
 use pocketmine\math\Vector3;
 
-use pocketmine\networkprotocol\AnimatePacket;
+use pocketmine\network\mcpe\protocol\AnimatePacket;
 
 use Eard\MeuHandler\Account;
 
@@ -78,7 +78,7 @@ abstract class AI{
 
 	const DEFAULT_JUMP = 0.2;
 
-	public static function setSize($enemy, $size){
+	public static function setSize(Human $enemy, $size){
 		$enemy->setScale($size);
 		//$enemy->width *= $size;
 		$enemy->length *= $size;
@@ -87,6 +87,7 @@ abstract class AI{
 
 	/**
 	 * Rateを取得
+	 * @param Enemy $enemy
 	 * @return bool
 	 */
 	public static function getRate($enemy){
@@ -107,7 +108,7 @@ abstract class AI{
 		return true;
 	}
 
-	public static function removeBadEffect($entity){
+	public static function removeBadEffect(Human $entity){
 		foreach($entity->getEffects() as $effect){
 			if($effect->isBad()){
 				$entity->removeEffect($effect->getId());
@@ -115,7 +116,7 @@ abstract class AI{
 		}
 	}
 
-	public static function allEffectExtension($entity, $tick){
+	public static function allEffectExtension(Human $entity, $tick){
 		foreach($entity->getEffects() as $effect){
 			if($effect->getDuration()+$tick < INT32_MAX){
 				$effect->setDuration($effect->getDuration()+$tick);
@@ -337,9 +338,9 @@ abstract class AI{
 	 * ビーム攻撃を実行
 	 * @param Entity  $enemy
 	 * @param int     $range
-	 * @param class   $particle1(弾道)
-	 * @param class   $particle2(着弾地点)
-	 * @param ...
+	 * @param Particle   $particle1(弾道)
+	 * @param Particle   $particle2(着弾地点)
+	 * @return Vector3
 	 */
 	public static function chargerShot($enemy, $range, $particle1, $particle2, $damage = 30, $yr = 0, $rr = 0.8, $destroy = false){
 		$yaw = $enemy->yaw;

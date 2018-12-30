@@ -204,7 +204,8 @@ class License {
     }
 
 	/**
-	*	@param Timestamp | -1	そのライセンスの有効期限 -1であれば無期限
+	*	@param int | -1	そのライセンスの有効期限 -1であれば無期限
+	 * @return bool
 	*/
 	public function setValidTime($time){
 		$this->time = $time;
@@ -212,7 +213,7 @@ class License {
 	}
 
 	/**
-	*	@return Timestamp | -1	そのライセンスの有効期限 -1であれば無期限
+	*	@return int | -1	そのライセンスの有効期限 -1であれば無期限
 	*/
 	public function getValidTime(){
 		return $this->time;
@@ -253,6 +254,7 @@ class License {
 
 	/**
 	*	@param Int 	$rank
+	 * @return bool
 	*/
 	public function setRank($rank){
 		$this->rank = $rank;

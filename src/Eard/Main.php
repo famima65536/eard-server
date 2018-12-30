@@ -3,6 +3,7 @@ namespace Eard;
 
 
 # Basic
+use Eard\DBCommunication\Place;
 use pocketmine\Player;
 use pocketmine\Server;
 use pocketmine\event\Listener;
@@ -101,7 +102,10 @@ class Main extends PluginBase implements Listener, CommandExecutor{
 		new EnemyRegister();
 		ItemName::init();
 		License::init();
-		Spawn::init(Connection::getPlace()->isLivingArea());//生活区域ならtrue、資源区域ならfalse
+		$place = Connection::getPlace();
+		if($place instanceof Place){
+			Spawn::init($place->isLivingArea());//生活区域ならtrue、資源区域ならfalse
+		}
 
 		self::$instance = $this;
 	}
@@ -378,7 +382,7 @@ class Main extends PluginBase implements Listener, CommandExecutor{
 					$p = strtolower($a[0]);
 					$value = isset($a[1]) ? $a[1] : "";
 					if(!$value){
-						$s->sendMessage(Chat::SystemToPlayer("パラメータ不足 /co {$p} <{$p}> のように入力"));
+						$s->sendMessage(Chat::SystemToPlayer("パラメータ不足 /db {$p} <{$p}> のように入力"));
 						return true;
 					}
 					switch($p){
@@ -395,11 +399,11 @@ class Main extends PluginBase implements Listener, CommandExecutor{
 							DB::writename($value);
 						break;
 						default:
-							$s->sendMessage(Chat::SystemToPlayer("パラメータ異常 /co [addr|user|pass|name] で入力"));
+							$s->sendMessage(Chat::SystemToPlayer("パラメータ異常 /db [addr|user|pass|name] で入力"));
 						break;
 					}
 				}else{
-					$s->sendMessage(Chat::SystemToPlayer("パラメータ不足 /co [addr|user|pass|name]"));
+					$s->sendMessage(Chat::SystemToPlayer("パラメータ不足 /db [addr|user|pass|name]"));
 				}
 				return true;
 			break;

@@ -765,7 +765,7 @@ class ShopView{
 	}
 
 	/**
-	*	@param Array
+	*	@param array
 	*/
 	public function setKeys($keys){
 		$this->keys = $keys;

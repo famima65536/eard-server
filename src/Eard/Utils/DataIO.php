@@ -22,7 +22,7 @@ class DataIO{
 	}
 
 	/**
-	*　@param String $filename  消したいファイルの名前(class名を設定しておく)
+	* @param String $filename  消したいファイルの名前(class名を設定しておく)
 	* @return bool
 	*/
 	public static function DeleteFromDB($filename){
@@ -33,8 +33,8 @@ class DataIO{
 
 	/**
 	* 各オブジェクトでひつようになった設定ファイルの読み込みをDBから行う
-	*　@param String $filename  読みたいファイルの名前(class名を設定しておく)
-	* @return Array | false
+	* @param String $filename  読みたいファイルの名前(class名を設定しておく)
+	* @return array | false
 	*/
 	public static function loadFromDB($filename){
 		$sql = "SELECT * FROM settings WHERE name = '{$filename}';";
@@ -49,8 +49,8 @@ class DataIO{
 
 	/**
 	* 各オブジェクトでひつようになった設定ファイルのセーブをDBへと行う
-	*　@param String $filename　読みたいファイルの名前(class名を設定しておく)
-	* @param Array　セーブしたいデータ
+	* @param String $filename 読みたいファイルの名前(class名を設定しておく)
+	* @param array セーブしたいデータ
 	* @return bool
 	*/
 	public static function saveIntoDB($filename, $data){
@@ -67,15 +67,15 @@ class DataIO{
 
 	/**
 	* 各オブジェクトでひつようになった設定ファイルの読み込み
-	*　@param String $filename  読みたいファイルの名前(class名を設定しておく)
-	* @return Array | false
+	* @param String $filename  読みたいファイルの名前(class名を設定しておく)
+	* @return array | false
 	*/
 	public static function load($filename){
 		$path = self::$path;
 		$filepath = "{$path}{$filename}.sra";
 		$json = @file_get_contents($filepath);
 		if($json){
-			if($data = unserialize($json)){
+			if($data = json_decode($json, true)){
 				return $data;
 			}
 		}
@@ -84,8 +84,8 @@ class DataIO{
 
 	/**
 	* 各オブジェクトでひつようになった設定ファイルのセーブ
-	*　@param String $filename　読みたいファイルの名前(class名を設定しておく)
-	* @param Array　セーブしたいデータ
+	* @param String $filename 読みたいファイルの名前(class名を設定しておく)
+	* @param array セーブしたいデータ
 	* @return bool
 	*/
 	public static function save($filename, $data){
@@ -94,7 +94,7 @@ class DataIO{
 			@mkdir($path);
 		}
 		$filepath = "{$path}{$filename}.sra";
-		$json = serialize($data);
+		$json = json_encode($data, JSON_PRETTY_PRINT);
 		return file_put_contents($filepath, $json);
 	}
 

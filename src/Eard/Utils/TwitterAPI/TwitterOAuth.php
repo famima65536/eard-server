@@ -169,8 +169,8 @@ class TwitterOAuth extends Config
      *
      * @param string $path
      * @param array  $parameters
-     *
      * @return array|object
+	 * @throws
      */
     public function oauth2($path, array $parameters = [])
     {
@@ -352,8 +352,8 @@ class TwitterOAuth extends Config
      * @param string $url
      * @param string $method
      * @param array  $parameters
-     *
      * @return array|object
+	 * @throws
      */
     private function makeRequests($url, $method, array $parameters)
     {

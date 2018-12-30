@@ -64,7 +64,7 @@ class FormBase implements Form {
 	/**
 	*	パケットを送りつける
 	*	@param Int [$id] 正直なんでもいい
-	*	@param Array [$data] フォーマットに沿ったかきかたをしたarray
+	*	@param array [$data] フォーマットに沿ったかきかたをしたarray
 	*/
 	public function show(int $id, array $data){
 		$player = $this->playerData->getPlayer();

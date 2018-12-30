@@ -150,7 +150,7 @@ class FreeShop implements BlockObject {
 	}
 
 	/**
-	*	ブロック長押しされた時　キャンセルは不可
+	*	ブロック長押しされた時 キャンセルは不可
 	*	@param Item そのブロックをタップしたアイテム
 	*	@return bool
 	*/

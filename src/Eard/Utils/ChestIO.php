@@ -21,7 +21,7 @@ use pocketmine\nbt\tag\StringTag;
 
 class ChestIO extends BaseInventory {
 
-	protected $name = "アイテム入れるところ";
+	protected $name = "アイテム入れるところ", $maxStack = 0;
 
 	/*
 		継承
@@ -40,13 +40,14 @@ class ChestIO extends BaseInventory {
 		//$inventoryType = InventoryType::get(InventoryType::CHEST);
 		//parent::__construct($player, $inventoryType, [], $this->maxStack, "ChestIO"); //BaseInventoryにメソッド
 
-		parent::__construct($player, [], $this->maxStack, "ChestIO"); //v1.2
+		parent::__construct([], $this->maxStack, "ChestIO"); //v1.2
 
 		//Holderに当たる部分は、InventoryHolderをimplementsしてるclassである必要がある→playerでおｋ
 
 		// holderはなんでもいい？ entityなんとかchangeeventで使われるだけっぽい 雑な調べなのであてにしないで
 
 		// 継承先で setItemArrayしてね！
+
 	}
 
 	public function getDefaultSize() : int{
