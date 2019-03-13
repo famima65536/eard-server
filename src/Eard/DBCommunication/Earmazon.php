@@ -21,7 +21,7 @@ class Earmazon {
 
 
 	public static function init(){
-		self::setup();
+		self::reset();
 	}
 
 

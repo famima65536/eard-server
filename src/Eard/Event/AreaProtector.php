@@ -406,6 +406,11 @@ class AreaProtector{
 
 	/**
 	*	使用できないやつをはじく
+	 * @param Account $playerData
+	 * @param int $x
+	 * @param int $y
+	 * @param int $z
+	 * @param int $blockId
 	*	@return bool つかえるならtrue
 	*/
 	public static function Use(Account $playerData, $x, $y, $z, $blockId){
@@ -504,12 +509,12 @@ class AreaProtector{
 
 	/**
 	*	土地を買う際の、決済処理を行う。決済が完了したらgiveSectionを実行する。
-	*	@param Player Playerオブジェクト
+	*	@param Player $player Playerオブジェクト
 	*	@param int AreaProtector::calculateSectionNo で得られるxの値
 	*	@param int AreaProtector::calculateSectionNo で得られるzの値
 	*	@return bool
 	*/
-	public static function registerSection($player, $sectionNoX, $sectionNoZ){
+	public static function registerSection(Player $player, $sectionNoX, $sectionNoZ){
 		
 		$playerData = Account::get($player);
 		if($uniqueNo = $playerData->getUniqueNo()){
