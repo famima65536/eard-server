@@ -233,6 +233,7 @@ class AreaProtector{
 
 	/**
 	*	住所入れたらcodeふたつにしてかえしてくれる
+	 * @param string $code
 	*	@return array
 	*/
 	public static function getCoordinateFromSectionCode(string $code){
@@ -336,13 +337,20 @@ class AreaProtector{
 				}
 			break;
 		}
+
+		return -1;
 	}
 	
 
 	/**
 	*	生活区域 その「場所」で設置破壊ができるか
-	*/
-	public static function Edit(Player $player, $x, $y, $z){
+	 * @param Player $player
+	 * @param float $x
+	 * @param float $y
+	 * @param float $z
+	 * @return bool
+	 */
+	public static function Edit(Player $player, float $x, float $y, float $z){
 		if( ($ownerNo = self::getOwnerFromCoordinate($x, $z)) < 0 ){
 			// -1 … グリッド上
 			$player->sendPopup(self::makeWarning("グリッド上での設置破壊は許可されていません。"));
@@ -499,8 +507,8 @@ class AreaProtector{
 	/**
 	*	土地を買う際の、決済処理を行う。決済が完了したらgiveSectionを実行する。
 	*	@param Player Playerオブジェクト
-	*	@param int | AreaProtector::calculateSectionNo で得られるxの値
-	*	@param int | AreaProtector::calculateSectionNo で得られるzの値
+	*	@param int AreaProtector::calculateSectionNo で得られるxの値
+	*	@param int AreaProtector::calculateSectionNo で得られるzの値
 	*	@return bool
 	*/
 	public static function registerSection($player, $sectionNoX, $sectionNoZ){
@@ -666,7 +674,7 @@ class AreaProtector{
 		return round($price*$mag);
 	}
 
-	public static function getHome($playerData){
+	public static function getHome(Account $playerData){
 		$address = ($ad = $playerData->getAddress()) ? $ad : null;
 		return $address;
 	}
@@ -726,6 +734,8 @@ class AreaProtector{
 
 	/**
 	*	セクションごとにそんざいするでーた。読み込む。
+	 * @param int $sectionNoX
+	 * @param int $sectionNoZ
 	*	@return array | false
 	*/
 	private static function readSectionFile($sectionNoX, $sectionNoZ){
@@ -740,10 +750,15 @@ class AreaProtector{
 			//ふぁいるなんてなかった
 			return false;//section no
 		}
+
+		return false;
 	}
 
 	/**
 	*	セクションごとにそんざいするでーた。書き込む。
+	 * @param int $sectionNoX
+	 * @param int $sectionNoZ
+	 * @param array $data
 	*	@return bool 保存ができればtrue
 	*/
 	private static function saveSectionFile($sectionNoX, $sectionNoZ, $data){

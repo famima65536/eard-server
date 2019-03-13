@@ -5,6 +5,8 @@ use Eard\Utils\Chat;
 use Eard\Utils\ChestIO;
 use Eard\MeuHandler\Government;
 use Eard\MeuHandler\Account;
+use pocketmine\item\Item;
+use pocketmine\Player;
 
 class Quest{
 	public static $allQuests = [];
@@ -15,6 +17,7 @@ class Quest{
 	const QUESTID = 0;
 	const NORM = 0;
 	public $achievement = 0;
+	private $inventory;
 
 	const TYPE_SUBJUGATION = 1;//討伐系
 	const TYPE_DELIVERY = 2;//納品系
@@ -67,13 +70,13 @@ class Quest{
 		return (static::NORM <= $this->achievement);
 	}
 
-	public function sendRewardMeu($player, $amount){
+	public function sendRewardMeu(Player $player, int $amount){
 		//Meu送金処理
 		$player->sendMessage(Chat::SystemToPlayer("§e報酬金 {$amount}μ 獲得しました"));
 		Government::giveMeu(Account::get($player), $amount, "Quest: クリア報酬 {$amount}μ");
 	}
 
-	public function checkDelivery($player){
+	public function checkDelivery(Player $player){
 		$inv = $player->getInventory();
 		$delitem = static::getTarget();
 		$delid = $delitem[0];
@@ -103,11 +106,12 @@ class Quest{
 		}
 	}
 
-	public function sendRewardItem($player, $item){
+	public function sendRewardItem(Player $player, Item $item){
 		//アイテム送信処理
 		$this->inventory = new ChestIO($player);
 		$this->inventory->additem($item);
 		$this->inventory->setName("報酬ボックス(閉じると中のアイテムは消滅します)");
 		$player->addWindow($this->inventory);
 	}
+
 }

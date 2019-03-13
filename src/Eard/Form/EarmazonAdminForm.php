@@ -3,6 +3,7 @@ namespace Eard\Form;
 
 
 # basic
+use Eard\MeuHandler\Account;
 use pocketmine\Server;
 use pocketmine\item\Item;
 
@@ -23,6 +24,7 @@ class EarmazonAdminForm extends FormBase {
 	*/
 
 	public function send(int $id){
+		/** @var Account $playerData */
 		$playerData = $this->playerData;
 		$cache = [];
 		$data = [];
@@ -473,4 +475,5 @@ class EarmazonAdminForm extends FormBase {
 	public $amount, $price = 0;
 
 	private $categoryNo = 0;
+
 }

@@ -21,7 +21,7 @@ class Meu {
 	/**
 	*	@param int $amount | そのmeuの量
 	*	@param MeuHandler (Account, Governmentそのた「meuをオブジェクトに持つ」もの)
-	*	@return class Meu
+	*	@return Meu
 	*/
 	public static function get($amount, MeuHandler $meuHandler){
 		$meu = new Meu();
@@ -32,6 +32,7 @@ class Meu {
 
 	/**
 	*	政府しか使うな!!!
+	 * @param int $amount
 	*/
 	public function setAmount($amount){
 		$this->amount = $amount;
@@ -65,9 +66,9 @@ class Meu {
 	}
 
 	/**
-	*	分割する。playerの全額面のなかから、一部だけを切り取りたい時に。
-	*	@param int | 取り出したいmeu
-	*	@return Meu or null
+	*	分割する。 playerの全額面のなかから、一部だけを切り取りたい時に。
+	*	@param int $spilitAmount 取り出したいmeu
+	*	@return Meu | null
 	*/
 	public function spilit($spilitAmount){
 		if($spilitAmount <= $this->amount){

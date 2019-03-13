@@ -312,7 +312,7 @@ abstract class AI{
 	}
 
 	//範囲攻撃
-	public static function rangeAttack($enemy, $range, $power, $target = null, $callFunc = null){
+	public static function rangeAttack(Entity $enemy, $range, $power, $target = null, $callFunc = null){
 		if($target === null){
 			$target = Server::getInstance()->getOnlinePlayers();
 		}

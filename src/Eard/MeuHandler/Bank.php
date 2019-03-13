@@ -449,8 +449,8 @@ class Bank {
 	/**
 	*	普通預金口座を作る
 	*	オフラインでは使用不可
-	*	@param MeuHandler
-	*	@param int 初期デポジットの量
+	*	@param Account $playerData
+	*	@param int $amount 初期デポジットの量
 	 * @return bool
 	*/
 	public static function createBankAccount(Account $playerData, int $amount): bool{
@@ -521,6 +521,8 @@ class Bank {
 	/**
 	*	銀行口座が作られているかどうか確認する
 	*	あればロードする
+	 * @param Account $playerData
+	 * @return bool
 	*/
 	public static function existBankAccount(Account $playerData): bool{
 		if(isset(self::$account[$playerData->getUniqueNo()])){
@@ -550,9 +552,11 @@ class Bank {
 	/**
 	*	資産項目(ユーザーの長期借入)が存在するか
 	*	あればtrue、なければfalseを返す
+	 * @param Account $playerData
+	 * @return bool
 	*/
 	public static function existBankDebit(Account $playerData): bool{
-		if(isset(self::$account[$playerData])){
+		if(isset(self::$account[$playerData->getUniqueNo()])){
 			return true;
 		}
 
@@ -565,16 +569,13 @@ class Bank {
 
 		$result = $db->query($sql);
 		if($result){
-				return true;//ローンがある
+			return true;//ローンがある
 		}
 		return false;
-
-
 	}
 
 	/**
-	*
-	*	@param bool trueを入れるときには、quitなど「保存したものを即反映させないといけないやつ」
+	*	@param Account $playerData
 	*/
 	public static function saveBankAccount(Account $playerData){
 		/*
@@ -591,6 +592,8 @@ class Bank {
 	/**
 	*	普通預金口座が存在するかどうか
 	*	オフラインでも使用可能
+	 * @param Account $playerData
+	 * @return BankAccount
 	*/
 	public static function getBankAccount(Account $playerData){
 		return self::existBankAccount($playerData) ? self::$account[$playerData->getUniqueNo()] : false;
@@ -628,8 +631,10 @@ class Bank {
 	/**
 	*	普通預金口座から引き出し
 	*	オフラインでも使用可能
-	*	@param MeuHandler
-	*	@param int 引き出す量
+	*	@param Account $playerData
+	*	@param int $amount 引き出す量
+	 * @param int $reason
+	 * @return bool
 	*/
 	public static function withdraw(Account $playerData, int $amount, int $reason = 1): bool{
 		$playerMeu = $playerData->getMeu();
@@ -664,8 +669,10 @@ class Bank {
 	/**
 	*	普通預金口座に預入
 	*	オフラインでも使用可能
-	*	@param MeuHandler
-	*	@param int 預け入れる量
+	*	@param Account $playerData
+	*	@param int $amount 預け入れる量
+	 * @param int $reason
+	 * @return bool
 	*/
 	public static function deposit(Account $playerData, int $amount, int $reason = 0): bool{
 		$playerMeu = $playerData->getMeu();
@@ -700,6 +707,7 @@ class Bank {
 	/**
 	*	中央銀行当座預金から引き出し
 	*	@param int 預け入れる量
+	 * @return bool
 	*/
 	public static function withdraw_Current(int $amount): bool{
 		$sql = "UPDATE bank SET balance = balance - {$amount} WHERE no = 100001 AND type = 0;";
@@ -709,6 +717,7 @@ class Bank {
 	/**
 	*	中央銀行当座預金に預入
 	*	@param int 預け入れる量
+	 * @return bool
 	*/
 	public static function deposit_Current(int $amount): bool{
 		$sql = "UPDATE bank SET balance = balance + {$amount} WHERE no = 100001 AND type = 0;";
@@ -736,6 +745,7 @@ class Bank {
 	/**
 	*	通帳に記帳する際に使う
 	*@param int
+	 * @return string
 	*/
 	public static function getReason(int $n): string{
 		switch ($n) {
@@ -750,9 +760,10 @@ class Bank {
 
 	/**
 	*	残高を確認
-	*	@param MeuHandler
+	*	@param Account
+	 * @return int
 	*/
-	public static function getBalance($playerData): int{
+	public static function getBalance(Account $playerData): int{
 		return self::getBankAccount($playerData)->getMeu()->getAmount();
 	}
 
@@ -768,6 +779,7 @@ class Bank {
 	*	銀行にとっての「負債（＝預金）」と「資産（＝借り入れ）」
 	* いずれかの総額を計算する
 	*@param int 0は負債、1は資産で計算する
+	 * @return int
 	*/
 	public static function getTotalAmount(int $n): int{
 		$sql = "SELECT SUM(balance) FROM bank WHERE no <> 100001 AND type = {$n};";
@@ -787,6 +799,7 @@ class Bank {
 	/**
 	*	金利と返済金額のリスト
 	*@param int 0は負債、1は資産で計算する
+	 * @return array
 	*/
 	public static function getList(int $amount): array{
 		$list = [];
@@ -872,14 +885,14 @@ class Bank {
 
 
 class BankAccount implements MeuHandler {
+	public $TransactionData;
 
 	public function __construct(Account $playerData){
 		$this->meuHandler = $playerData;
 		$this->TransactionData = [];
 	}
 
-	// @meuHandler
-	public function getMeu(){
+	public function getMeu(): ?Meu{
 		return $this->meu;
 	}
 

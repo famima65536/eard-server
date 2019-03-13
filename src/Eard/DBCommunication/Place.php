@@ -63,6 +63,8 @@ class Place {
 
 	/**
 	*	place番号における、ipとポートを、更新してdbに書き込み。
+	 * @param string $ip
+	 * @param int|string $port
 	*/
 	public function writeAddrInfo($ip, $port){
 		$place = $this->place;

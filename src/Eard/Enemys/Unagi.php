@@ -23,7 +23,7 @@ use pocketmine\level\particle\DestroyBlockParticle;
 use pocketmine\level\particle\TerrainParticle;
 use pocketmine\level\particle\SpellParticle;
 use pocketmine\level\sound\GhastSound;
-use pocketmine\level\generator\normal\eardbiome\Biome;
+use Eard\World\Generator\Biome\Biome;
 
 use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\nbt\tag\DoubleTag;

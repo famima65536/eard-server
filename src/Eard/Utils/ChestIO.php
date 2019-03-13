@@ -17,6 +17,7 @@ use pocketmine\network\mcpe\protocol\BlockEntityDataPacket;
 use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\nbt\tag\IntTag;
 use pocketmine\nbt\tag\StringTag;
+use pocketmine\tile\Spawnable;
 
 
 class ChestIO extends BaseInventory {
@@ -111,7 +112,10 @@ class ChestIO extends BaseInventory {
 		$pk->flags = UpdateBlockPacket::FLAG_NONE;//読み込まれていないチャンクに送り付ける時は注意が必要
 		$who->dataPacket($pk);
 
-		// NBT送る(チェスト開けたときのインベントリ名変更) from pocketmine\tile\spawnable
+		// NBT送る(チェスト開けたときのインベントリ名変更)
+		/**
+		 * @see Spawnable
+		 */
 		if($name = $this->getName()){
 			$nbt = new LittleEndianNBTStream();
 			$c = new CompoundTag("", [

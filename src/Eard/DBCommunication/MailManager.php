@@ -3,6 +3,7 @@ namespace Eard\DBCommunication;
 
 
 # Basic
+use Eard\Main;
 use pocketmine\Player;
 use pocketmine\Server;
 
@@ -37,6 +38,8 @@ class MailManager {
 
     /**
     *   メール送信
+	 * @param Mail $mail
+	 * @return int
     */
     public static function sendMail(Mail $mail){
         if(!$mail->id && !$mail->key){
@@ -45,23 +48,25 @@ class MailManager {
                 // キーを生成
                 $mail->key = md5(uniqid(rand(), true)); // セキュリティとか大丈夫だよね！ね！
                 $mail->date = date("Y-m-d H:i:s");
-                $mail->state = Mail::STATE_UNREAD;
+                //$mail->state = Mail::STATE_UNREAD;
+				//TODO: Fix Mail State
 
                 // 送信
-                $flag = MailManager::sendQueue($mail);
-                return $flag;
+                MailManager::sendQueue($mail);
+                return true;//TODO: Add State
             }else{
                 return Mail::ERR_NO_INFO;
             }
         }else{
             // すでに送られている
             return Mail::ERR_ALREADY_SENT;
-        }       
+        }
     }
 
 
     /**
     *   実際のmailオブジェクトを、メールとしてdbに記録する
+	 * @param Mail $mail
     */
     public static function sendQueue(Mail $mail){
         $sql = "INSERT INTO mail ".
@@ -86,6 +91,7 @@ class MailManager {
 
     /**
     *   そのプレイヤーが受信できる(下書き含む)すべてのメールを取得しメモリ上に保存しておく
+	 * @param Account $playerData
     *   @return Mail[]
     */
     public static function getAllMailsSentTo(Account $playerData){
@@ -105,7 +111,7 @@ class MailManager {
 
     /**
     *   政府からのメール含め、未読のメールを取得しメモリ上に保存しておく
-    *   @param Account このプレイヤーの受信できるメールを取得する
+    *   @param Account $playerData このプレイヤーの受信できるメールを取得する
     *   @return Mail[]
     */
     public static function getUnreadMailsSentTo(Account $playerData){
@@ -129,7 +135,7 @@ class MailManager {
 
     /**
     *   未読のメールを取得しメモリ上に保存しておく
-    *   @param Account このプレイヤーの受信できるメールを取得する
+    *   @param Account $playerData このプレイヤーの受信できるメールを取得する
     *   @return Mail[]
     */
     public static function getAllMailsSentFrom(Account $playerData){
@@ -153,9 +159,10 @@ class MailManager {
 
     /**
     *   向こう側で出したgetがわのstmtをここで処理する
+	* @param
     *   @return Mail[]
     */
-    private static function handleGetQueue($stmt){
+    private static function handleGetQueue($stmt){//TODO: check PHPDoc
 
         $mailId = 0;
         $from = 0;

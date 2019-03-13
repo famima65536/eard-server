@@ -10,6 +10,7 @@ use pocketmine\item\ItemFactory;
 use pocketmine\network\mcpe\protocol\RemoveEntityPacket;
 use pocketmine\network\mcpe\protocol\AddPlayerPacket;
 use pocketmine\math\Vector3;
+use pocketmine\Player;
 use pocketmine\utils\UUID;
 
 # Eard
@@ -27,11 +28,11 @@ trait BlockMenu {
 	abstract public function getObjIndexNo();
 	abstract public function getPageAr();
 
-/********************
+/*
 	I/O (tap)
-********************/
+*/
 
-	public function MenuTap($player){
+	public function MenuTap(Player $player){
 		if(!isset($this->menu[$player->getName()])){
 			//全部の値を送信用にセット
 			$this->menu[$player->getName()] = [1, 0, null, null, false]; // [$page, $cursor, $pageAr, $temp, $sent]
@@ -45,7 +46,7 @@ trait BlockMenu {
 		$this->sendTextParticle($player);
 	}
 
-	public function MenuLongTap($player){
+	public function MenuLongTap(Player $player){
 		if(isset($this->menu[$player->getName()])){//最初タップしてからアクティベート
 			//現在のカーソル
 			$cursor = $this->menu[$player->getName()][1];
@@ -56,11 +57,11 @@ trait BlockMenu {
 		}
 	}
 
-/********************
+/*
 	Calculate
-********************/
+*/
 
-	public function makeTemp($pageAr){
+	public function makeTemp(int $pageAr){
 		$temp = [];
 		foreach($pageAr as $key => $ar){
 			if($ar[1]) $temp[] = $key; //ページ番号が入っていたらそれはカーソルなので、カウント
@@ -68,7 +69,7 @@ trait BlockMenu {
 		return $temp;
 	}
 
-	public function getNextCursor($player){
+	public function getNextCursor(Player $player){
 		if(count($this->menu[$player->getName()][3]) === 1){
 			return 0;
 		}else{
@@ -80,8 +81,10 @@ trait BlockMenu {
 	/**
 	*	直接、ページ内容を送る。pageNoを指定すればびゅーんととべるので
 	*	Chatや、getPageArからの指定でもいいぞ。
+	 * @param int $pageNo
+	 * @param Player $player
 	*/
-	public function sendPageData($pageNo, $player){
+	public function sendPageData(int $pageNo, Player $player){
 		//おくったと記録し
 		$this->menu[$player->getName()][0] = $pageNo;
 		//次ページの初期のカーソル位置
@@ -97,11 +100,11 @@ trait BlockMenu {
 		$this->sendTextParticle($player);
 	}
 
-/********************
+/*
 	Text Particle 
-********************/
+*/
 
-	private function getAddPacket($text){
+	private function getAddPacket(string $text){
 		$pk = new AddPlayerPacket();
 		$pk->entityRuntimeId = 900000 + $this->getObjIndexNo();
 		$pk->uuid = UUID::fromRandom();
@@ -128,7 +131,7 @@ trait BlockMenu {
 		return $pk;
 	}
 
-	public function sendTextParticle($player){
+	public function sendTextParticle(Player $player){
 		//一回送って居たら、削除するぱけっと
 		//print_r($this->menu[$player->getName()]);
 		$sent = $this->menu[$player->getName()][4];
@@ -158,11 +161,11 @@ trait BlockMenu {
 
 	public function removeTextParticleAll(){
 		foreach($this->menu as $name => $d){
-			$player = Account::get($name)->getPlayer();
-			if($player){
-				$pk = $this->getRemovePacket();
-				$player->directDataPacket($pk);
-			}
+			$player = Account::getByName($name)->getPlayer();
+		}
+		if($player instanceof Player){
+			$pk = $this->getRemovePacket();
+			$player->directDataPacket($pk);
 		}
 	}
 

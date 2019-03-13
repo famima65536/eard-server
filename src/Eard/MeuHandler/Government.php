@@ -46,7 +46,7 @@ class Government implements MeuHandler {
 	authdata AreaProtector
 */
 
-	public function allowEdit($playerData, $sectionNoX, $sectionNoZ){
+	public function allowEdit(Account $playerData, $sectionNoX, $sectionNoZ){
 		$editRank = $this->getAuthData($sectionNoX, $sectionNoZ)[0];
 		if($playerData->hasValidLicense(License::GOVERNMENT_WORKER, $editRank)){
 			if(!$this->isWorker($playerData->getName())) $this->addWorker($playerData->getName());
@@ -57,7 +57,7 @@ class Government implements MeuHandler {
 		}
 	}
 
-	public function allowUse($playerData, $sectionNoX, $sectionNoZ){
+	public function allowUse(Account $playerData, $sectionNoX, $sectionNoZ){
 		$editRank = $this->getAuthData($sectionNoX, $sectionNoZ)[1];
 		if($playerData->hasValidLicense(License::GOVERNMENT_WORKER, $editRank)){
 			if(!$this->isWorker($playerData->getName())) $this->addWorker($playerData->getName());
@@ -131,7 +131,7 @@ class Government implements MeuHandler {
 	/*
 	*	政府関係者の時給
 	*/
-	public static function paidPerHour($playerData){
+	public static function paidPerHour(Account $playerData){
 		$license = $playerData->getLicense(License::GOVERNMENT_WORKER);
 		$rank = $license instanceof License ? $license->getRank() : 0;
 		return 1500 + 100 * ($rank - 1);
@@ -165,9 +165,9 @@ class Government implements MeuHandler {
 	/**
 	*	政府から、そのぷれいやー/会社に対して送金する。
 	*	会社のはまだできてない
-	*	@param Account | 政府があげる対象
-	*	@param int | 政府があげる量
-	*	@param String | 支払いの名目、理由(土地購入、あいてむこうにゅうなど)
+	*	@param Account 政府があげる対象
+	*	@param int 政府があげる量
+	*	@param string 支払いの名目、理由(土地購入、あいてむこうにゅうなど)
 	*	@return bool
 	*/
 	public static function giveMeu(Account $playerData, $amount, $reason){
@@ -198,9 +198,9 @@ class Government implements MeuHandler {
 
 	/**
 	*	そのぷれいやー/会社から政府に対して送金する。
-	*	@param Account | 政府に対してあげる対象
-	*	@param int | プレイヤーがあげる量
-	*	@param String | 支払いの名目、理由(土地購入、あいてむこうにゅうなど)
+	*	@param Account 政府に対してあげる対象
+	*	@param int プレイヤーがあげる量
+	*	@param string 支払いの名目、理由(土地購入、あいてむこうにゅうなど)
 	*	@return bool
 	*/
 	public static function receiveMeu(Account $playerData, $amount, $reason){

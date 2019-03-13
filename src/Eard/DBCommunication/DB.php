@@ -11,7 +11,7 @@ use Eard\Utils\DataIO;
 class DB{
 
 
-	public static function get(){
+	public static function get(): ?\mysqli{
 		if(self::$mysqli == null){
 			self::mysqlConnect();
 		}

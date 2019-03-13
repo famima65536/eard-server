@@ -56,6 +56,7 @@ class Main extends PluginBase implements Listener, CommandExecutor{
 
 	public function onEnable(){
 		date_default_timezone_set('asia/tokyo');
+		self::$instance = $this;
 		$this->getServer()->getPluginManager()->registerEvents(new Event(), $this);
 
 		# DB系
@@ -65,8 +66,6 @@ class Main extends PluginBase implements Listener, CommandExecutor{
 			//正常にmysqlにつなげた場合のみ。
 			$this->reconnect();
 		}
-
-		self::$instance = $this;
 
 		# 釣り変更
 		Recipe::changeFishes();

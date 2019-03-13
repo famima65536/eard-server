@@ -54,6 +54,7 @@ class FormBase implements Form {
 
 		20170922
 	*/
+	protected $playerData;
 
 	public function __construct(Account $playerData){
 		$this->playerData = $playerData;

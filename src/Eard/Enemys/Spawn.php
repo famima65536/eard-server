@@ -3,10 +3,11 @@ namespace Eard\Enemys;
 
 
 # Basic
+use Eard\Main;
 use pocketmine\Player;
 use pocketmine\Server;
 use pocketmine\scheduler\Task;
-use pocketmine\level\generator\normal\eardbiome\Biome;
+use Eard\World\Generator\Biome\Biome;
 
 # Eard
 use Eard\Event\Time;
@@ -65,7 +66,8 @@ class Spawn extends Task{
 		$level = Server::getInstance()->getDefaultLevel();
 		$time = $level->getTime();
 		$isNight = ($time%24000 >= 14000);
-		$weather = $level->getWeather()->getWeather();
+		//$weather = $level->getWeather()->getWeather();
+		$weather = 0;
 		$list = self::$wihts[$this->spawnType];
 		$plst = Server::getInstance()->getOnlinePlayers();
 		shuffle($plst);

@@ -79,7 +79,7 @@ class Account implements MeuHandler {
 	*  @param bool isfromweb
 	*	@return Account or null
 	*/
-	public static function getByName($name,$isfromweb = false){
+	public static function getByName($name, $isfromweb = false){
 		$name = strtolower($name);
 		if($name){
 			if(!isset(self::$accounts[$name])){
@@ -204,9 +204,11 @@ class Account implements MeuHandler {
 	public function initItemBox(){
 		$this->itemBox = new ItemBox($this);
 	}
-	public function getItemBox(){
+
+	public function getItemBox(): ?ItemBox{
 		return $this->itemBox;
 	}
+
 	private $itemBox = null;
 
 
@@ -230,7 +232,7 @@ class Account implements MeuHandler {
 		return null;
 	}
 	public function updateNowQuestData(){
-		$quest = $this->nowQuest;
+		$quest = $this->getNowQuest();
 		if($quest === null){
 			$this->resetQuest();
 			return $this->data[9];
@@ -238,13 +240,16 @@ class Account implements MeuHandler {
 		$this->data[9][0] = [$quest->getQuestId(), $quest->getAchievement()];
 		return $this->data[9];
 	}
-	public function getNowQuest(){
+
+	public function getNowQuest(): ?Quest{
 		return $this->nowQuest;
 	}
+
 	public function setNowQuest(Quest $quest){
 		$this->nowQuest = $quest;
 		$this->data[9][0] = [$quest->getQuestId(), $quest->getAchievement()];
 	}
+
 	public function addClearQuest(int $id){
 		if($this->isClearedQuest($id)){
 			return false;
@@ -252,22 +257,27 @@ class Account implements MeuHandler {
 		$this->data[9][1][$id] = true;
 		return true;
 	}
+
 	public function isClearedQuest(int $id){
 		if(isset($this->data[9][1][$id])){
 			return true;
 		}
 		return false;
 	}
+
 	public function setQuestData($array){
 		$this->data[9] = $array;
 	}
+
 	public function getQuestData(){
 		return $this->data[9];
 	}
+
 	public function resetQuest(){
 		$this->nowQuest = null;
 		$this->data[9][0] = [];
 	}
+
 	private $nowQuest = null;
 
 
@@ -447,13 +457,11 @@ class Account implements MeuHandler {
 	*	所持ミューをMeuにして詰めて返す。Meuの扱い方についてはclass::Meuにて。
 	*	@return Meu 所持金料などのデータ
 	*/
-	// @meuHandler
 	public function getMeu(){
 		return $this->meu;
 	}
 	private $meu;
 
-	// @meuHandler
 	public function getName(){
 		// オンラインであれば正確な名前を、オフラインであればdbのなまえを 分ける必要がなぜあるのか？は、大文字小文字の問題。
 		return $this->getPlayer() instanceof Player ? $this->getPlayer()->getName() : $this->name;
@@ -462,14 +470,14 @@ class Account implements MeuHandler {
 
 	/**
 	*	何かをするのに必要なパーミッションと言っていいだろう。
+	 * @param License $license
 	*	@return Int 	-1...すでに持ってる 0...あげれない 1...あげれた
 	*/
 	public function addLicense(License $license){
-
-
 		// コスト
 		if($this->canAddNewLicense($license)){
 			$licenseNo = $license->getLicenseNo();
+			/** @var License $oldone */
 			if($oldone = $this->getLicense($licenseNo)){
 				// すでに持ってたら
 				$oldrank = $oldone->getRank();
@@ -513,9 +521,9 @@ class Account implements MeuHandler {
 	/**
 	*	そのライセンスを持っていれば返す
 	*	@param int 各ライセンスに割り当てられた番号
-	*	@return bool 有効期限の範囲内ならtrue
+	*	@return License
 	*/
-	public function getLicense($licenseNo){
+	public function getLicense($licenseNo): ?License{
 		return isset($this->licenses[$licenseNo]) ? $this->licenses[$licenseNo] : null;
 	}
 
@@ -531,10 +539,12 @@ class Account implements MeuHandler {
 	/**
 	*	そのライセンスが有効期限内であるか。
 	*	$rankに値を入れたばあいには、そのランクを満たしているかもチェックする
+	 * @param int $licenseNo
+	 * @param int $rank
 	*	@return bool
 	*/
-	public function hasValidLicense($licenseNo, $rank = false){
-		if(!$rank){
+	public function hasValidLicense(int $licenseNo, int $rank = -1){
+		if($rank === -1){
 			$rank = License::RANK_BEGINNER;
 		}
 		$license = $this->getLicense($licenseNo);
@@ -544,6 +554,7 @@ class Account implements MeuHandler {
 	/**
 	*	新しいライセンスを得る際、コストに問題がないかを計算してくれる
 	*	そのライセンスを付けられるか、コストの面から見る
+	 * @param License $license
 	*	@return bool つけられるならtrue つけられないならfalse
 	*/
 	public function canAddNewLicense(License $license){
@@ -605,7 +616,7 @@ class Account implements MeuHandler {
 		public function onUpdateTime(){
 			$timeNow = time();
 			//$lastLoginTime = $this->data[2][1];
-			$lastLoginTime = 0;
+			$lastLoginTime = 0;//TODO: Fix it
 			if($lastLoginTime == 0 or
 				date('N', $lastLoginTime) !== date('N', $timeNow) or
 				date('W', $lastLoginTime) !== date('W', $timeNow)
@@ -660,9 +671,10 @@ class Account implements MeuHandler {
 	/**
 	*	所持しているセクションを追加する。
 	*	※処理は、AreaProtectorからのみ行うこと。 20170701
-	*	@param int 座標を AreaProtector::calculateSectionNo に突っ込んで得られるxの値
-	*	@param int 座標を AreaProtector::calculateSectionNo に突っ込んで得られるzの値
-	*	@param int その土地に設定する権限レベル。詳しくはAddSharePlayerの候にて。
+	*	@param int $sectionNoX 座標を AreaProtector::calculateSectionNo に突っ込んで得られるxの値
+	*	@param int $sectionNoZ 座標を AreaProtector::calculateSectionNo に突っ込んで得られるzの値
+	*	@param int $editAuth その土地に設定する権限レベル。詳しくはAddSharePlayerの候にて。
+	 * @param int $exeAuth
 	*	@return bool
 	*/
 	public function addSection($sectionNoX, $sectionNoZ, $editAuth = 4, $exeAuth = 4){
@@ -675,6 +687,8 @@ class Account implements MeuHandler {
 	}
 
 	/**
+	 * @param int $sectionNoX
+	 * @param int $sectionNoZ
 	*	@return array
 	*/
 	public function getSection($sectionNoX, $sectionNoZ): array{
@@ -790,9 +804,10 @@ class Account implements MeuHandler {
 
 	/**
 	*	ぷれいやーが、このプレイヤーを攻撃できるか
+	 * @param int $flag
 	*/
-	public function setAttackSetting($flag){
-		$this->data[10][0] = (int) $flag;
+	public function setAttackSetting(int $flag){
+		$this->data[10][0] = $flag;
 	}
 	/**
 	*	trueなら殴れる
@@ -803,10 +818,12 @@ class Account implements MeuHandler {
 
 	/**
 	*	ぷれいやーが、このプレイヤーを攻撃できるか
+	 * @param int $flag
 	*/
-	public function setShowDamageSetting($flag){
-		$this->data[10][1] = (int) $flag;
+	public function setShowDamageSetting(int $flag){
+		$this->data[10][1] = $flag;
 	}
+
 	/**
 	*	trueなら殴れる
 	*/
@@ -816,30 +833,36 @@ class Account implements MeuHandler {
 
 	/**
 	*	Naviでの矢印の大きさ
+	 * @param int $size
 	*/
 	public function setArrowSize(int $size){
-		return $this->data[10][2] = $size;
+		$this->data[10][2] = $size;
 	}
+
 	public function getArrowSize(){
 		return $this->data[10][2] ?? 1;
 	}
 
 	/**
 	*	Naviでの矢印の高さ
+	 * @param int $height
 	*/
 	public function setArrowHeight(int $height){
-		return $this->data[10][3] = $height;
+		$this->data[10][3] = $height;
 	}
+
 	public function getArrowHeight(){
 		return $this->data[10][3] ?? 0;
 	}
 
 	/**
 	*	目的地までの距離を表示するか
+	 * @param int $flag
 	*/
-	public function setShowDistanceSetting($flag){
-		$this->data[10][4] = (int) $flag;
+	public function setShowDistanceSetting(int $flag){
+		$this->data[10][4] = $flag;
 	}
+
 	/**
 	*	trueなら表示する
 	*/
@@ -860,9 +883,11 @@ class Account implements MeuHandler {
 	public function setNowTransfering($flag){
 		$this->isNowTransfering = $flag;
 	}
+
 	public function isNowTransfering(){
 		return $this->isNowTransfering;
 	}
+
 	private $isNowTransfering = false;
 
 /* save / load
@@ -870,10 +895,11 @@ class Account implements MeuHandler {
 
 	/**
 	*	データを、DBから取得し,newされたこのclassにセットする。
-	*	@param bool webからならtrue
+	 * @param string $name
+	*	@param bool $isfromweb webからならtrue
 	*	@return bool でーたがあったかどうか
 	*/
-	public function loadData($name="",$isfromweb = false){
+	public function loadData($name="", $isfromweb = false){
 		if($this->player instanceof Player){
 			$name = strtolower($this->player->getName());
 			$sql = "SELECT * FROM data WHERE `name` = '{$name}';";
@@ -983,7 +1009,7 @@ class Account implements MeuHandler {
 	/**
 	*	データをエンコードし、格納する。
 	*	そのプレイヤーの初回のみ。
-	*	@param bool
+	*	@param bool $isfrompmmp
 	*/
 	public function saveData($isfrompmmp = false){
 		$player = $this->getPlayer();
@@ -1014,18 +1040,18 @@ class Account implements MeuHandler {
 	public function updateData($quit = false){
 		//Meuの量を
 		if(isset($this->meu)){ // なにかしらエラーでとまったときにセーブが止まるとまずいので
-			$this->data[1] = $this->meu->getAmount();
+			$this->data[1] = $this->getMeu()->getAmount();
 		}else{
 			return false;
 		}
 
 		// itemBoxがつかわれていたようであればセーブ
-		if( $itemBox = $this->getItemBox()){// itemBoxは必ず展開されているわけではないから
+		if($itemBox = $this->getItemBox()){// itemBoxは必ず展開されているわけではないから
 			$this->setItemArray($itemBox->getItemArray());
 		}
 
 		// questDataがつかわれていたようであればセーブ
-		if( $quest = $this->updateNowQuestData()){// itemBoxは必ず展開されているわけではないから
+		if($quest = $this->updateNowQuestData()){// itemBoxは必ず展開されているわけではないから
 			$this->setQuestData($quest);
 		}
 

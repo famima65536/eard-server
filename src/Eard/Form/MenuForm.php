@@ -4,7 +4,7 @@ namespace Eard\Form;
 
 # basic
 use pocketmine\Server;
-use pocketmine\level\generator\normal\eardbiome\Biome;
+use Eard\World\Generator\Biome\Biome;
 
 # Eard
 use Eard\DBCommunication\Connection;

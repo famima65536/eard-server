@@ -19,7 +19,7 @@ use pocketmine\level\Location;
 use pocketmine\level\Explosion;
 use pocketmine\level\MovingObjectPosition;
 use pocketmine\level\format\FullChunk;
-use pocketmine\level\generator\normal\eardbiome\Biome;
+use Eard\World\Generator\Biome\Biome;
 use pocketmine\level\particle\DestroyBlockParticle;
 use pocketmine\level\particle\SpellParticle;
 

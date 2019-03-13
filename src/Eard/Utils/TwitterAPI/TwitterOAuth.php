@@ -348,7 +348,6 @@ class TwitterOAuth extends Config
      *
      * Make requests and retry them (if enabled) in case of Twitter's problems.
      *
-     * @param string $method
      * @param string $url
      * @param string $method
      * @param array  $parameters

@@ -161,7 +161,7 @@ class FreeShop implements BlockObject {
 	/**
 	*	ブロック長押しされ続け、壊された時
 	*	trueが帰ると、DestroyBlockEventがキャンセルされる
-	*	@param $x, $y, $z | 座標
+	*	@param $x, $y, $z 座標
 	*	@param Item そのブロックをタップしたアイテム
 	*	@return bool
 	*/

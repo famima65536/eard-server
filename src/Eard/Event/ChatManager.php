@@ -35,9 +35,9 @@ class ChatManager {
 
 	/**
 	*	PlayerChatEventからの処理が直でやってくる。チャットの全処理をここで行う。
-	*	@param string | プレイヤー名
-	*	@param PlayerChatEvent 
-	*	@return bool | チャットを表示できるかできないか…boolを返す意味がいまいち 20170709
+	*	@param string プレイヤー名
+	*	@param PlayerChatEvent $e
+	*	@return bool チャットを表示できるかできないか…boolを返す意味がいまいち 20170709
 	*/
 	public static function chat($player, $e){
 		$playerData = Account::get($player);

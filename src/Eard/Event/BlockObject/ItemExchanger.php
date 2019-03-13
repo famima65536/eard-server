@@ -3,6 +3,7 @@ namespace Eard\Event\BlockObject;
 
 
 # Basic
+use Eard\MeuHandler\Meu;
 use pocketmine\Player;
 use pocketmine\item\Item;
 
@@ -63,9 +64,9 @@ class ItemExchanger implements BlockObject, ChatInput {
 
 	}
 
-/********************
+/*
 	BlockMenu
-********************/
+*/
 
 	use BlockMenu;
 
@@ -280,10 +281,11 @@ class ItemExchanger implements BlockObject, ChatInput {
 
 	/**
 	*	playerが持っているitem,Meuを、こちら側のコンテナにセットする
-	*	@param $item = Item, Meu
+	 * @param Account $playerData
+	*	@param $item Item | Meu
 	*	@return bool
 	*/
-	public function set($playerData, $item){
+	public function set(Account $playerData, $item){
 		$name = $playerData->getPlayer()->getName();
 		if(!isset($this->transaction[$name])){
 			$this->transaction[$name][0] = $playerData;
@@ -292,7 +294,10 @@ class ItemExchanger implements BlockObject, ChatInput {
 		}else{
 			$key = count( $this->transaction[$name][1] ) - 1;
 			if($this->transaction[$name][1][$key] instanceof Meu && $item instanceof Meu){
-				$this->transaction[$name][1][$key]->merge($item);
+				/** @var Meu $meu */
+				$meu = $this->transaction[$name][1][$key];
+				$meu->merge($item, "");//TODO: Add reason
+				$this->transaction[$name][1][$key] = $meu;
 			}else{
 				if($item instanceof Item && $item->getId() != 0){//airがはいるかもしれない
 					$this->transaction[$name][1][] = $item;
@@ -302,12 +307,13 @@ class ItemExchanger implements BlockObject, ChatInput {
 		return true;
 	}
 
-	public function getAsText($player, $separator = "\n"){
+	public function getAsText(Player $player, $separator = "\n"){
 		$name = $player->getName();
 		$out = "";
 		if(isset($this->transaction[$name][1])){
 			foreach($this->transaction[$name][1] as $i){
-				$itemName = ItemName::getNameOf($i);
+				/** @var Item $i*/
+				$itemName = ItemName::getNameOf($i->getId(), $i->getDamage());
 				$out .= " {$itemName} x {$i->getCount()}{$separator}";
 			}
 			$out = substr($out, 0, -1);

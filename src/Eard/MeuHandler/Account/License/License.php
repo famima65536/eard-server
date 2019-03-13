@@ -73,6 +73,8 @@ class License {
 
 	/**
 	*	ランクまで分けた番号からライセンスを引きたい時
+	 * @param int $realLicenseNo
+	 * @return License | null
 	*/
 	public static function getByRealLicenseNo($realLicenseNo){
 		$licenseNo = floor($realLicenseNo / 10);
@@ -179,9 +181,9 @@ class License {
 
 	/**
 	*	そのライセンスの有効期限を伸ばす。値がなければ一週間。
-	*	@param int 増やす時間(秒)
+	*	@param int $timeAmount 増やす時間(秒)
 	*/
-	public function update($timeAmount){
+	public function update(int $timeAmount){
 		// まだ有効期限内
 		if(time() < $this->time){
 			$this->time = $this->time + $timeAmount;
@@ -189,7 +191,6 @@ class License {
 		}else{
 			$this->time = time() + $timeAmount;
 		}
-		return true;
 	}
 
     /**
