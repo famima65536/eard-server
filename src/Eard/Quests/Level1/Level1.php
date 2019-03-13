@@ -2,7 +2,6 @@
 namespace Eard\Quests\Level1;
 
 use Eard\Quests\Quest;
-use Eard\MeuHandler\Account;
 
 class Level1{
 	public static $quests = [];

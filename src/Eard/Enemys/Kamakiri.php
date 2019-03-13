@@ -4,19 +4,9 @@ namespace Eard\Enemys;
 
 use Eard\Main;
 
-use pocketmine\Player;
-use pocketmine\Server;
-
 use pocketmine\block\Block;
 
-use pocketmine\network\mcpe\protocol\AddEntityPacket;
-use pocketmine\network\mcpe\protocol\MobArmorEquipmentPacket;
-use pocketmine\network\mcpe\protocol\AnimatePacket;
-
 use pocketmine\level\Level;
-use pocketmine\level\Position;
-use pocketmine\level\Location;
-use pocketmine\level\Explosion;
 use pocketmine\level\MovingObjectPosition;
 use pocketmine\level\format\FullChunk;
 use Eard\World\Generator\Biome\Biome;
@@ -28,11 +18,8 @@ use pocketmine\nbt\tag\DoubleTag;
 use pocketmine\nbt\tag\FloatTag;
 use pocketmine\nbt\tag\ListTag;
 use pocketmine\nbt\tag\StringTag;
-use pocketmine\nbt\tag\ByteTag;
 
-use pocketmine\entity\Effect;
 use pocketmine\entity\Entity;
-use pocketmine\entity\Living;
 
 use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\event\entity\EntityDamageEvent;
@@ -313,7 +300,8 @@ class Kamakiri extends Humanoid implements Enemy{
 							case 8:
 							case 9:
 								AI::jump($this, 1.25, 0, 0.1);
-								AI::setRate($this, 10, 4.5);
+								//AI::setRate($this, 10, 4.5);//TODO: どっち?
+								AI::setRate($this, 10);
 								$this->level->addParticle(new SpellParticle($this, 220, 180, 20));
 								$this->rangeAttack($this->charge, 4, 4);
 								++$this->charge;

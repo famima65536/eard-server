@@ -5,10 +5,8 @@ use pocketmine\network\mcpe\protocol\CraftingDataPacket;
 use pocketmine\Player;
 //use pocketmine\entity\FishingHook;
 use pocketmine\item\Potion;
-use pocketmine\item\enchantment\Enchantment;
 use Eard\MeuHandler\Account;
 use Eard\Utils\EardItem as Item;
-use pocketmine\item\ItemFactory;
 use pocketmine\inventory\ShapedRecipe;
 use pocketmine\Server;
 

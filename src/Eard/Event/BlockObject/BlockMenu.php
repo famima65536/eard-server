@@ -3,7 +3,6 @@ namespace Eard\Event\BlockObject;
 
 
 # TextParticle
-use pocketmine\entity\object\ItemEntity;
 use pocketmine\entity\Entity;
 use pocketmine\item\Item;
 use pocketmine\item\ItemFactory;
@@ -26,7 +25,7 @@ trait BlockMenu {
 
 	//useするclassではかならず これらを持っててね
 	abstract public function getObjIndexNo();
-	abstract public function getPageAr();
+	abstract public function getPageAr($no, $player);
 
 /*
 	I/O (tap)

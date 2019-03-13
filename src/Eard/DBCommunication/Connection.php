@@ -24,6 +24,8 @@ class Connection {
 
 	/**
 	*	生活側で使うメソッド。飛ばせるか確認の処理などをすべてこちらで行う。
+	 * @param Account $PlayerData
+	 * @param Place $place
 	*	@return Int 	-1 ~ 1 (-1..エラー発生, 0...不一致のため入れず 1...はいれる)
 	*/
 	public static function Transfer(Account $PlayerData, Place $place){
@@ -65,8 +67,8 @@ class Connection {
 
 		// 実際飛ばす処理
 		$player->transfer($addr, $port); // あらゆる処理の最後に持ってくるべき
+		return 1;
 	}
-
 
 	/**
 	*	資源側で使うメソッド。1以外が帰った場合には、ログイン不可画面を出す。

@@ -3,12 +3,10 @@ namespace Eard\DBCommunication;
 
 
 # Basic
-use Eard\Main;
 use pocketmine\Player;
 use pocketmine\Server;
 
 # Eard
-use Eard\DBCommunication\DB;
 use Eard\MeuHandler\Account;
 use Eard\Utils\Chat;
 

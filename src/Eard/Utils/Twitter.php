@@ -1,7 +1,6 @@
 <?php
 namespace Eard\Utils;
 
-use Eard\Utils\DataIO;
 use Eard\Utils\TwitterAPI\TwitterOAuth;
 
 

@@ -325,26 +325,27 @@ class ItemExchanger implements BlockObject, ChatInput {
 
 	public function backItemAll(){
 		foreach($this->transaction as $name => $d){
+			/** @var Account $playerData */
 			$playerData = $d[0];
 			foreach($d[1] as $i){
 				if($d[1] instanceof Item){
 					$playerData->getPlayer()->getInventory()->addItem($i);
 				}elseif($d[1] instanceof Meu){
-					$playerData->getMeu()->merge($i);
+					$playerData->getMeu()->merge($i, "");//TODO: Add reason
 				}
 			}
 		}
 		$this->transaction = [];
 	}
 
-	public function backItem($playerData){
-		if(isset($this->transaction[$name])){
+	public function backItem(Account $playerData){
+		if(isset($this->transaction[$playerData->getName()])){
 			$name = $playerData->getPlayer()->getName();
 			foreach($this->transaction[$name][1] as $item){
 				if($item instanceof Item){
 					$playerData->getPlayer()->getInventory()->addItem($item);
 				}elseif($item instanceof Meu){
-					$playerData->getMeu()->merge($item);
+					$playerData->getMeu()->merge($item, "");//TODO: Add reason
 				}
 			}
 			unset($this->transaction[$name]);

@@ -4,7 +4,6 @@ namespace Eard\Enemys;
 
 # Basic
 use Eard\Main;
-use pocketmine\Player;
 use pocketmine\Server;
 use pocketmine\scheduler\Task;
 use Eard\World\Generator\Biome\Biome;

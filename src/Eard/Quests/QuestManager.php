@@ -1,8 +1,6 @@
 <?php
 namespace Eard\Quests;
 
-use pocketmine\event\server\DataPacketReceiveEvent;
-use pocketmine\network\mcpe\protocol\ModalFormResponsePacket;
 use pocketmine\network\mcpe\protocol\ModalFormRequestPacket;
 use pocketmine\Player;
 
@@ -11,7 +9,6 @@ use Eard\Utils\ItemName;
 use Eard\MeuHandler\Account;
 
 # Quests
-use Eard\Quests\Level1\Level1;
 use Eard\Quests\Level1\Level2;
 use Eard\Quests\Level1\Level3;
 use Eard\Quests\Level1\Level4;

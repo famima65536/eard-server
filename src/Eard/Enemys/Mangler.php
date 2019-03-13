@@ -2,24 +2,9 @@
 
 namespace Eard\Enemys;
 
-use Eard\Main;
-
-use pocketmine\Player;
-use pocketmine\Server;
-
-use pocketmine\block\Block;
-
-use pocketmine\network\mcpe\protocol\AddEntityPacket;
-use pocketmine\network\mcpe\protocol\MobArmorEquipmentPacket;
-use pocketmine\network\mcpe\protocol\AnimatePacket;
-
 use pocketmine\level\Level;
-use pocketmine\level\Position;
-use pocketmine\level\Location;
-use pocketmine\level\Explosion;
 use pocketmine\level\MovingObjectPosition;
 use pocketmine\level\format\FullChunk;
-use pocketmine\level\particle\DestroyBlockParticle;
 use pocketmine\level\particle\SpellParticle;
 use Eard\World\Generator\Biome\Biome;
 
@@ -28,11 +13,8 @@ use pocketmine\nbt\tag\DoubleTag;
 use pocketmine\nbt\tag\FloatTag;
 use pocketmine\nbt\tag\ListTag;
 use pocketmine\nbt\tag\StringTag;
-use pocketmine\nbt\tag\ByteTag;
 
-use pocketmine\entity\Effect;
 use pocketmine\entity\Entity;
-use pocketmine\entity\Living;
 
 use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\event\entity\EntityDamageEvent;

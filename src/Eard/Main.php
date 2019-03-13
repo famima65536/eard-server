@@ -9,7 +9,7 @@ use pocketmine\Server;
 use pocketmine\event\Listener;
 use pocketmine\plugin\PluginBase;
 use pocketmine\item\Item;
-use pocketmine\permission\Permission;
+
 //use pocketmine\entity\FishingHook;
 
 # Command
@@ -33,7 +33,6 @@ use Eard\Utils\DataIO;
 use Eard\Utils\Chat;
 use Eard\Utils\Twitter;
 use Eard\DBCommunication\Earmazon;
-use Eard\Form\LicenseForm;
 use Eard\Form\NaviForm;
 
 # Enemys

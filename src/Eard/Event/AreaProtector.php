@@ -4,7 +4,6 @@ namespace Eard\Event;
 
 # Basic
 use pocketmine\Player;
-use pocketmine\Server;
 use pocketmine\item\Item;
 use pocketmine\utils\MainLogger;
 use pocketmine\network\mcpe\protocol\UpdateBlockPacket;
@@ -13,7 +12,6 @@ use pocketmine\network\mcpe\protocol\UpdateBlockPacket;
 # Eard
 use Eard\MeuHandler\Account;
 use Eard\MeuHandler\Government;
-use Eard\MeuHandler\Account\License\License;
 use Eard\Utils\Chat;
 use Eard\Utils\DataIO;
 use Eard\Utils\ItemName;

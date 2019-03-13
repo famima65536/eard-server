@@ -3,16 +3,12 @@ namespace Eard\Form;
 
 
 # basic
-use pocketmine\Server;
-use pocketmine\item\Item;
+use pocketmine\Player;
 
 # Eard
 use Eard\DBCommunication\Earmazon;
-use Eard\Utils\Chat;
 use Eard\Utils\ItemName;
-use Eard\MeuHandler\Account;
 use Eard\MeuHandler\Account\License\License;
-use Eard\Form\EarmazonAdminForm;
 
 
 class EarmazonForm extends FormBase {
@@ -619,14 +615,14 @@ class EarmazonForm extends FormBase {
   /**
 	*	カテゴリから/検索idから つくる
 	*	@param Player $player
-	*	@return Array $pageAr
+	*	@return array $pageAr
 	*/
 	public function makeList($player){
 		$view = $this->input[$player->getName()];
 
 		// 検索方法を選択
 		$buttons = [];
-    $cache = [];
+		$cache = [];
 		$title = "";
 		$content = "";
 
@@ -651,7 +647,7 @@ class EarmazonForm extends FormBase {
 			}
 		}else{
 			echo "ここに来るべきではない\n";
-			return false;
+			return [];
 		}
 
 		// リストにアイテムがあったか？
@@ -666,11 +662,11 @@ class EarmazonForm extends FormBase {
 				$nowfirst = 5 * ($page - 1);
 				if(isset( $unitar[$nowfirst + 5] )){
 					$buttons[] = ['text' => "次ページへ"];
-          $cache[] = 25;
+					$cache[] = 25;
 				}
 				if(isset( $unitar[$nowfirst - 5] )){
 					$buttons[] = ['text' => "前ページへ"];
-          $cache[] = 26;
+					$cache[] = 26;
 				}
 				$unitar = array_slice($unitar, ($page - 1) * 5, 5);
 			}
@@ -679,21 +675,21 @@ class EarmazonForm extends FormBase {
 			$keys = [];
 			foreach($unitar as $data){
 				$itemName = ItemName::getNameOf($data[0], $data[1]);
-        $buttons[] = ['text' => "§0{$itemName} §8{$data[3]}μ§0/個 残り§8{$data[2]}§0個"];
-        $cache[] = $cnt;
+				$buttons[] = ['text' => "§0{$itemName} §8{$data[3]}μ§0/個 残り§8{$data[2]}§0個"];
+				$cache[] = $cnt;
 				$keys[] = $data[4]; // buylist / selllist の no;
 				$cnt ++;
 			}
 
 			if($view->category){
-        $buttons[] = ['text' => "カテゴリ検索に戻る"];
-        $cache[] = 4;
+				$buttons[] = ['text' => "カテゴリ検索に戻る"];
+				$cache[] = 4;
 			}elseif($view->id){
-        $buttons[] = ['text' => "ID検索に戻る"];
-        $cache[] = 3;
+				$buttons[] = ['text' => "ID検索に戻る"];
+				$cache[] = 3;
 			}else{
-        $buttons[] = ['text' => "戻る"];
-        $cache[] = 2;
+				$buttons[] = ['text' => "戻る"];
+				$cache[] = 2;
 			}
 
 			$view->setKeys($keys);
@@ -703,14 +699,14 @@ class EarmazonForm extends FormBase {
 			$content = "何もありませんでした";
 
 			if($view->category){
-        $buttons[] = ['text' => "カテゴリ検索に戻る"];
-        $cache[] = 4;
+				$buttons[] = ['text' => "カテゴリ検索に戻る"];
+				$cache[] = 4;
 			}elseif($view->id){
-        $buttons[] = ['text' => "ID検索に戻る"];
-        $cache[] = 3;
+				$buttons[] = ['text' => "ID検索に戻る"];
+				$cache[] = 3;
 			}else{
-        $buttons[] = ['text' => "戻る"];
-        $cache[] = 2;
+				$buttons[] = ['text' => "戻る"];
+				$cache[] = 2;
 			}
 		}
 

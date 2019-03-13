@@ -9,14 +9,12 @@ use pocketmine\entity\Effect;
 
 # Eard
 use Eard\DBCommunication\DB;
-use Eard\DBCommunication\Mail;
 use Eard\Event\ChatManager;
 use Eard\Form\Form;
 use Eard\MeuHandler\Account\ItemBox;
 use Eard\MeuHandler\Account\License\License;
 use Eard\MeuHandler\Account\License\Costable;
 use Eard\MeuHandler\Account\License\Recipe;
-use Eard\Utils\DataIO;
 use Eard\Utils\Chat;
 use Eard\Quests\Quest;
 

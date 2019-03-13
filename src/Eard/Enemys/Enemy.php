@@ -2,8 +2,6 @@
 
 namespace Eard\Enemys;
 
-use pocketmine\math\Vector3;
-
 /**Webでも使う用にエネミーｸﾗｽに定義を強制している関数
  * インスタンス生成にPMMPが必要なため必ず静的メソッドで定義
  * getNumber()で取得した識別番号からエネミークラスを呼び出したい

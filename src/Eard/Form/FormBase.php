@@ -3,7 +3,6 @@ namespace Eard\Form;
 
 
 # Basic
-use pocketmine\Player;
 use pocketmine\network\mcpe\protocol\ModalFormRequestPacket;
 
 # Eard

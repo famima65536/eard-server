@@ -6,8 +6,6 @@
  */
 namespace Eard\Utils\TwitterAPI;
 
-use Eard\Utils\TwitterAPI\JsonDecoder;
-
 /**
  * TwitterOAuth class for interacting with the Twitter API.
  *

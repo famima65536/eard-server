@@ -4,11 +4,9 @@ namespace Eard\Form;
 
 #basic
 use pocketmine\network\mcpe\protocol\ServerSettingsResponsePacket;
-use pocketmine\Player;
 
 # Eard
 use Eard\MeuHandler\Account;
-use Eard\MeuHandler\Account\License\License;
 
 
 class SettingsForm implements Form {

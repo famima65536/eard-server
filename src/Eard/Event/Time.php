@@ -9,7 +9,6 @@ use pocketmine\utils\MainLogger;
 # Eard
 use Eard\DBCommunication\Connection;
 use Eard\MeuHandler\Account;
-use Eard\Utils\DataIO;
 use Eard\Utils\Chat;
 use Eard\Event\BlockObject\BlockObjectManager;
 

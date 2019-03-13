@@ -2,19 +2,8 @@
 namespace Eard\Form;
 
 # basic
-use pocketmine\Server;
-use pocketmine\scheduler\Task;
-use pocketmine\math\Vector3;
 
 # Eard
-use Eard\DBCommunication\Connection;
-use Eard\MeuHandler\Account;
-use Eard\MeuHandler\Government;
-use Eard\MeuHandler\Account\License\License;
-use Eard\MeuHandler\Account\License\Costable;
-use Eard\Event\AreaProtector;
-use Eard\Enemys\AI;
-use Eard\Utils\Chat;
 use Eard\Utils\ChestIO;
 use Eard\Utils\ItemName;
 

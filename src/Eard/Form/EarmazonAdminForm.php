@@ -326,7 +326,8 @@ class EarmazonAdminForm extends FormBase {
 				// ストレージから減らす
 				if(!Earmazon::removeFromStorage($this->id, $this->meta, $this->amount)){
 					$this->sendErrorModal($title, "§c出るべきでないエラー(報告してください)。§7ストレージの在庫を減らす処理に失敗しました。", 5);
-					Earmazon::addIntoBuyUnit($unitno, $amount); // 販売リストの点数戻す
+					//Earmazon::addIntoBuyUnit($unitno, $amount); // 販売リストの点数戻す
+					//TODO: check process
 					return false;
 				}
 				$inv->addItem($item);
@@ -456,7 +457,6 @@ class EarmazonAdminForm extends FormBase {
 				$itemName = ItemName::getNameOf($this->id, $this->meta);
 				$content = "§fアイテム「{$itemName}」を選択しました。";
 				$this->sendModal($title, $content, "§bOK、わかった",1, "§cいや、指定しなおそう",self::SEARCH);
-
 			break;
 		}
 
@@ -469,6 +469,8 @@ class EarmazonAdminForm extends FormBase {
 		}else{
 			// echo "formIdが1000と表示されていれば送信済みでもそれいがいならcacheが設定されていないので送られてない\n";
 		}
+
+		return false;
 	}
 
 	public $id, $meta = 0;

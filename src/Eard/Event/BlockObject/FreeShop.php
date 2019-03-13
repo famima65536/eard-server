@@ -101,6 +101,7 @@ class FreeShop implements BlockObject {
 				$player->addWindow($this->inventory);
 			}
 		}else{
+			$message = "";
 			$price = $this->getPrice();
 			$list = $this->getItemNameList();
 			switch($this->buyCheck($player)){
@@ -238,9 +239,10 @@ class FreeShop implements BlockObject {
 	*/
 	public function getItemNameList($separator = "、"){
 		if(!$this->inventory){
-			$this->inventory = new ChestIO($player);
+			/*$this->inventory = new ChestIO($player);
 			$this->inventory->setItemArray($this->itemArray);
-			$this->inventory->setName($this->getShopName());
+			$this->inventory->setName($this->getShopName());*/
+			return false;//TODO
 		}
 		$list = $this->inventory->getItemArray();
 		if(!isset($list[0])){

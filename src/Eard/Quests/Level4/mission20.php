@@ -3,7 +3,6 @@ namespace Eard\Quests\Level4;
 
 use Eard\Quests\Quest;
 use pocketmine\item\Item;
-use pocketmine\item\Potion;
 
 class mission20 extends Quest{
 	const QUESTID = 20;

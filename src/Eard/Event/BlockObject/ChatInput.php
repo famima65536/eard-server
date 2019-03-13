@@ -3,7 +3,6 @@ namespace Eard\Event\BlockObject;
 
 
 use pocketmine\Player;
-use pocketmine\item\Item;
 
 
 interface ChatInput {

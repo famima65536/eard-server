@@ -4,7 +4,6 @@ namespace Eard\DBCommunication;
 
 # Basic
 use pocketmine\utils\MainLogger;
-use pocketmine\item\Item;
 
 
 class Place {

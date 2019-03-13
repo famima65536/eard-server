@@ -12,7 +12,6 @@ use pocketmine\network\mcpe\protocol\ContainerClosePacket;
 use pocketmine\network\mcpe\protocol\ContainerOpenPacket;
 use pocketmine\network\mcpe\protocol\types\WindowTypes;
 
-use pocketmine\nbt\NBT;
 use pocketmine\network\mcpe\protocol\BlockEntityDataPacket;
 use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\nbt\tag\IntTag;

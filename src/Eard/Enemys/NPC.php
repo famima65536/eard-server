@@ -79,12 +79,12 @@ class NPC extends Human implements ChatInput {
 	}
 
 	// NPC会話フレームワーク
-	public function singleTap(){
+	public function singleTap($player){
 
 	}
 
 	// NPC会話フレームワーク
-	public function doubleTap(){
+	public function doubleTap($player){
 
 	}
 

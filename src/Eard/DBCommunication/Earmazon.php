@@ -3,6 +3,7 @@ namespace Eard\DBCommunication;
 
 
 # Basic
+use Eard\MeuHandler\Account;
 use pocketmine\Player;
 use pocketmine\item\Item;
 use pocketmine\utils\MainLogger;
@@ -158,9 +159,9 @@ class Earmazon {
 
 	/**
 	*	販売したとき、販売リストにあるそのユニットの、残り可能買取数を減らす。
-	*	@param Int ItemId
-	*	@param Int ItemDamage
-	*	@param Int 減らす量 入れる量
+	*	@param int ItemId
+	*	@param int ItemDamage
+	*	@param int 減らす量 入れる量
 	*	@return bool
 	*/
 	public static function removeFromBuyUnit($unitno, $amount){
@@ -168,6 +169,7 @@ class Earmazon {
 		$result = DB::get()->query($sql);
 		return $result;
 	}
+
 	public static function addIntoBuyUnit($unitno, $amount){
 		$sql = "UPDATE earmazon_itembuylist SET leftamount = leftamount + {$amount} WHERE no = {$unitno};";
 		$result = DB::get()->query($sql);
@@ -641,8 +643,8 @@ class Earmazon {
 				}
 				return true;
 			}catch(\InvalidArgumentException $e){
-				self::addIntoBuyUnit($unitno, $amount, "Earmazon: エラーのため返金");
-				Government::receiveMeu($playerData, $pay);
+				self::addIntoBuyUnit($unitno, $amount);
+				Government::receiveMeu($playerData, $pay, "Earmazon: エラーのため返金");
 				self::removeFromStorage($id, $meta, $amount);
 				return false;
 			}

@@ -7,9 +7,7 @@ use pocketmine\utils\MainLogger;
 
 # Eard
 use Eard\MeuHandler\Account\License\License;
-use Eard\MeuHandler\Bank;
 use Eard\Utils\DataIO;
-use Eard\Utils\Chat;
 
 
 /****

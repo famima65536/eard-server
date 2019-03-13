@@ -3,7 +3,6 @@ namespace Eard\MeuHandler\Account;
 
 
 # Basic
-use pocketmine\Player;
 
 # Eard
 use Eard\Utils\ChestIO;

@@ -6,7 +6,6 @@ namespace Eard\Event;
 use Eard\DBCommunication\Place;
 use pocketmine\block\BlockToolType;
 use pocketmine\Player;
-use pocketmine\Server;
 use pocketmine\utils\MainLogger;
 use pocketmine\item\Item;
 use pocketmine\item\Potion;
@@ -16,11 +15,9 @@ use pocketmine\entity\Effect;
 # Event
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerLoginEvent;
-use pocketmine\event\player\PlayerPreLoginEvent;
 use pocketmine\event\player\PlayerQuitEvent;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerInteractEvent;
-use pocketmine\event\player\PlayerItemHeldEvent;
 use pocketmine\event\player\PlayerChatEvent;
 use pocketmine\event\player\PlayerDeathEvent;
 //use pocketmine\event\player\PlayerFishEvent;
@@ -41,13 +38,10 @@ use pocketmine\event\server\DataPacketSendEvent;
 use pocketmine\event\server\DataPacketReceiveEvent;
 use pocketmine\network\mcpe\protocol\ProtocolInfo;
 use pocketmine\network\mcpe\protocol\PlayerActionPacket;
-use pocketmine\network\mcpe\protocol\ServerSettingsRequestPacket;
 
 # Eard
 use Eard\Main;
 use Eard\DBCommunication\Connection;
-use Eard\Event\AreaProtector;
-use Eard\Event\ChatManager;
 use Eard\Event\BlockObject\BlockObjectManager;
 use Eard\Form\MenuForm;
 use Eard\Form\HelpForm;
@@ -58,18 +52,14 @@ use Eard\Form\ElevatorForm;
 use Eard\Form\FreemarketForm;
 use Eard\Form\EarmazonForm;
 use Eard\MeuHandler\Account;
-use Eard\MeuHandler\Account\Menu;
 use Eard\MeuHandler\Account\License\License;
 use Eard\MeuHandler\Account\License\Recipe;
 use Eard\Utils\Chat;
-use Eard\Utils\ItemName;
 
 # Enemy
 use Eard\Enemys\EnemyRegister;
 use Eard\Enemys\Humanoid;
 use Eard\Enemys\NPC;
-use Eard\Enemys\Unagi;
-use Eard\Enemys\Umimedama;
 use Eard\Enemys\AI;
 
 # Quest
@@ -352,7 +342,7 @@ class Event implements Listener{
 						break;
 						case 117: // 醸造台 Earmazon
 							$e->setCancelled(true);
-							new EarmazonForm($playerData, $block);
+							new EarmazonForm($playerData);
 						break;
 						case 52: // スポナー (エレベーター)
 							$e->setCancelled(true);

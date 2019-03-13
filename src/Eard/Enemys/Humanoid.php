@@ -5,29 +5,17 @@ namespace Eard\Enemys;
 use pocketmine\Server;
 use pocketmine\Player;
 use pocketmine\level\Level;
-use pocketmine\level\Position;
-use pocketmine\level\Location;
-use pocketmine\level\Explosion;
 use pocketmine\level\MovingObjectPosition;
 use pocketmine\level\format\FullChunk;
 use Eard\World\Generator\Biome\Biome;
 use pocketmine\level\particle\SpellParticle;
 
-use pocketmine\network\mcpe\protocol\AddEntityPacket;
-use pocketmine\network\mcpe\protocol\MobEquipmentPacket;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\item\Item;
-use pocketmine\item\enchantment\Enchantment;
 
 use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\DoubleTag;
-use pocketmine\nbt\tag\FloatTag;
-use pocketmine\nbt\tag\ListTag;
-use pocketmine\nbt\tag\StringTag;
-use pocketmine\nbt\tag\ByteTag;
 
-use pocketmine\entity\Entity;
 use pocketmine\entity\Human;
 
 use Eard\Utils\Chat;

@@ -3,11 +3,9 @@ namespace Eard\Form;
 
 
 # Eard
-use Eard\MeuHandler\Account;
 use Eard\MeuHandler\Government;
 use Eard\MeuHandler\Account\License\License;
 use Eard\MeuHandler\Account\License\Costable;
-use pocketmine\Player;
 
 
 class LicenseForm extends FormBase {

@@ -7,46 +7,21 @@ use pocketmine\Server;
 
 use pocketmine\scheduler\Task;
 
-use pocketmine\block\Liquid;
-use pocketmine\network\mcpe\protocol\AddEntityPacket;
-use pocketmine\network\mcpe\protocol\ExplodePacket;
 use pocketmine\item\Item as ItemItem;
 
-use pocketmine\command\Command;
-use pocketmine\command\CommandSender;
-
-use pocketmine\block\Block;
-
 use pocketmine\level\Level;
-use pocketmine\level\Position;
-use pocketmine\level\Location;
-use pocketmine\level\Explosion;
+
 //use pocketmine\level\MovingObjectPosition;
 //use pocketmine\level\format\FullChunk;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\DoubleTag;
-use pocketmine\nbt\tag\FloatTag;
-use pocketmine\nbt\tag\ListTag;
-use pocketmine\nbt\tag\StringTag;
 
 use pocketmine\level\particle\Particle;
-use pocketmine\level\particle\BubbleParticle;
-use pocketmine\level\particle\ItemBreakParticle;
 use pocketmine\level\particle\DestroyBlockParticle;
-use pocketmine\level\particle\InkParticle;
-use pocketmine\level\particle\TerrainParticle;
-use pocketmine\level\particle\DustParticle;
-use pocketmine\level\particle\CriticalParticle;
 use pocketmine\level\particle\FlameParticle;
-use pocketmine\level\particle\HappyVillagerParticle;
 use pocketmine\level\particle\FloatingTextParticle;
-use pocketmine\level\sound\LaunchSound;
-//use pocketmine\level\sound\ExplodeSound;
-use pocketmine\level\sound\EndermanTeleportSound;
-//use pocketmine\level\sound\SplashSound;
-use pocketmine\level\sound\AnvilFallSound;
 
-use pocketmine\entity\Attribute;
+//use pocketmine\level\sound\ExplodeSound;
+//use pocketmine\level\sound\SplashSound;
+
 use pocketmine\entity\Effect;
 use pocketmine\entity\Entity;
 //use pocketmine\entity\Egg;
@@ -55,19 +30,9 @@ use pocketmine\entity\Entity;
 //use pocketmine\entity\PigZombie;
 //use pocketmine\entity\Ghast;
 use pocketmine\entity\Human;
-use pocketmine\entity\Animal;
-use pocketmine\entity\Projectile;
-use pocketmine\event\entity\EntityDamageByBlockEvent;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
-use pocketmine\event\entity\EntityDamageByChildEntityEvent;
-use pocketmine\event\entity\EntityDamageEvent;
-use pocketmine\event\entity\EntityRegainHealthEvent;
-use pocketmine\event\entity\ProjectileHitEvent;
 
-use pocketmine\math\AxisAlignedBB;
 use pocketmine\math\Vector3;
-
-use pocketmine\network\mcpe\protocol\AnimatePacket;
 
 use Eard\MeuHandler\Account;
 
@@ -322,7 +287,7 @@ abstract class AI{
 			}
 			$disq = $enemy->distanceSquared($player);
 			if($disq <= pow($range, 2)){
-				if($callFunc !== null){
+				if(isset($callFunc) and $callFunc instanceof \Closure){//TODO: check implementing __invoke
 					$result = $callFunc($enemy, $player);
 					if(!$result){
 						continue;

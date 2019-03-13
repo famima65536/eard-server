@@ -8,7 +8,6 @@ use pocketmine\Server;
 use pocketmine\utils\MainLogger;
 
 # Eard
-use Eard\DBCommunication\Connection;
 use Eard\MeuHandler\Account;
 use Eard\Utils\Chat;
 

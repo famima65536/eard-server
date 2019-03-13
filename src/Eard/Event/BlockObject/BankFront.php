@@ -4,11 +4,9 @@ namespace Eard\Event\BlockObject;
 
 # Basic
 use pocketmine\Player;
-use pocketmine\item\Item;
 
 # Eard
 use Eard\MeuHandler\Account;
-use Eard\Utils\ItemName;
 use Eard\Form\BankForm;
 use Eard\Utils\Chat;
 

@@ -2,8 +2,6 @@
 
 namespace Eard\Enemys;
 
-use pocketmine\Server;
-use pocketmine\entity\Entity;
 use pocketmine\scheduler\Task;
 use pocketmine\level\Position;
 //use pocketmine\level\particle\HappyVillagerParticle;

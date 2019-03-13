@@ -6,10 +6,8 @@ use pocketmine\utils\MainLogger;
 
 #Eard
 use Eard\DBCommunication\DB;
-use Eard\MeuHandler\Account;
 use Eard\MeuHandler\Account\License\License;
 use Eard\Utils\DataIO;
-use Eard\MeuHandler\Government;
 
 
 class Bank {
@@ -57,7 +55,7 @@ class Bank {
 
 	public static function setup(){
 		$sql = "INSERT INTO bank (id, type, balance, data) VALUES (100001, 0, 0, ''), (100001, 1, 0, '')";
-		$result = $db->query($sql);
+		$result = DB::get()->query($sql);
 		if($result){
 			return true;
 		}
@@ -139,8 +137,8 @@ class Bank {
 					//それでも十分ではなかった場合、ライセンスの引き下げ
 					$now = time();
 					foreach($playerData->getAllLicenses() as $license){
-  					$license->setRank(0);
-  					$license->setValidTime($now);
+						$license->setRank(0);
+						$license->setValidTime($now);
 					}
 
 					//返済期限の延長（１週間）
@@ -316,7 +314,7 @@ class Bank {
 				END
 				WHERE no = {$uniqueNo};";
 
-    	return DB::get()->query($sql);
+			return DB::get()->query($sql);
 		}else{
 			if($player){// オンラインだったら
 				$msg = Chat::Format("銀行", "あなたにはお金(μ)を貸すことができません。");
@@ -324,6 +322,8 @@ class Bank {
 				return false;
 			}
 		}
+
+		return false;
 	}
 
 	/*
@@ -740,6 +740,8 @@ class Bank {
 				return 0;
 			}
 		}
+
+		return -1;
 	}
 
 	/**

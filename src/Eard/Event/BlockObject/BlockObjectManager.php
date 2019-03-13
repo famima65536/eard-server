@@ -242,11 +242,13 @@ class BlockObjectManager {
 				return $objData;
 			}
 		}
+
+		return [];
 	}
 
 	/**
-	*	@param int | $indexNo = self::index[$x][$y][$z]の中身
-	*	@param obj | blockObjectをextendsしているやつ
+	*	@param int $indexNo self::index[$x][$y][$z]の中身
+	*	@param object $obj blockObjectをextendsしているやつ
 	*	@return bool
 	*/
 	public static function saveObjectData($indexNo, $obj){

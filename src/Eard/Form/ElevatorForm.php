@@ -3,7 +3,6 @@ namespace Eard\Form;
 
 
 # Basic
-use pocketmine\Server;
 use pocketmine\math\Vector3;
 use pocketmine\entity\Entity;
 use pocketmine\scheduler\Task;
@@ -98,7 +97,7 @@ class ElevatorForm extends FormBase {
 			$this->cache = $cache;
 			$this->show($id, $data);
 		}
-	}	
+	}
 
 	// あにめーしょんかいしする
 	public function animation($desty){
