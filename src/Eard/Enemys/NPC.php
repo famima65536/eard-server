@@ -49,7 +49,7 @@ class NPC extends Human implements ChatInput {
 			]),
 		]);
 		if(!is_null($custom_name)){
-			$nbt->CustomName = new StringTag("CustomName", $custom_name);
+			$nbt->setTag(new StringTag("CustomName", $custom_name));
 		}
 		$entity = new NPC($level, $nbt);
 

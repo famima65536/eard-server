@@ -302,7 +302,7 @@ class Account implements MeuHandler {
 	*	@return null or String $playerName or array[$sectionNoX, $sectionNoZ]
 	*/
 	public function getNavigating(bool $isLivingArea){
-		$area = ($isLivingArea)? 0: 1;
+		$area = ($isLivingArea) ? 0: 1;
 		return $this->data[11][$area];
 	}
 

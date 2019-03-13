@@ -1,16 +1,16 @@
 <?php
-namespace Eard\DBCommunication;
 
+namespace Eard\DBCommunication;
 
 # Basic
 use pocketmine\Server;
+use pocketmine\utils\Internet;
 use pocketmine\utils\MainLogger;
 
 # Eard
 use Eard\Utils\DataIO;
 use Eard\MeuHandler\Account;
 use Eard\Utils\Chat;
-
 
 class Connection {
 
@@ -26,7 +26,7 @@ class Connection {
 	*	生活側で使うメソッド。飛ばせるか確認の処理などをすべてこちらで行う。
 	 * @param Account $PlayerData
 	 * @param Place $place
-	*	@return Int 	-1 ~ 1 (-1..エラー発生, 0...不一致のため入れず 1...はいれる)
+	*	@return int -1 ~ 1 (-1..エラー発生, 0...不一致のため入れず 1...はいれる)
 	*/
 	public static function Transfer(Account $PlayerData, Place $place){
 		$player = $PlayerData->getPlayer();
@@ -215,41 +215,15 @@ class Connection {
 	}
 
 	/**
-	*	urlにアクセスして、得られたjsonをarrayにして返す
-	*	@param String URL (http://からはじまる)
-	*	@return array
-	*/
-	private static function curlUnit($url){
-		$curl = curl_init($url);
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-		// curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
-		// curl_setopt($curl, CURLOPT_POST, true);
-		curl_setopt($curl, CURLOPT_HTTPHEADER, ["Content-Type: application/json"]);
-		$response = curl_exec($curl);
-		$httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-		curl_close($curl);
-
-		if($httpcode){
-			if($httpcode < 300){
-				return json_decode($response, true);
-			}else{
-				return false; //404
-			}
-		}else{
-			return false;
-		}
-	}
-
-	/**
 	*	この鯖のIPを取得する。開ける場所によって異なる。
 	*/
 	public static function getIpOfThis(){
-		$data = self::curlUnit("http://eard.32ki.net/lib/api/ip.php");
-		if(!$data){
+		$data = Internet::getIP();
+		if($data === false){
 			MainLogger::getLogger()->notice("§cConnection: IPデータ取得失敗");
 			return false;
 		}
 
-		return $data["ip"];
+		return $data;
 	}
 }

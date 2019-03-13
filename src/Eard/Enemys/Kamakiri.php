@@ -196,7 +196,7 @@ class Kamakiri extends Humanoid implements Enemy{
 		]);
 		$custom_name = self::getEnemyName();
 		if(!is_null($custom_name)){
-			$nbt->CustomName = new StringTag("CustomName", $custom_name);
+			$nbt->setTag(new StringTag("CustomName", $custom_name));
 		}
 		$entity = new Kamakiri($level, $nbt);
 		$entity->setMaxHealth(self::getHP());
@@ -335,7 +335,7 @@ class Kamakiri extends Humanoid implements Enemy{
 
 	public function rangeAttack($damage = 3.0, $range = 3, $more = 3){
 		AI::rangeAttack($this, $range, $damage, null, function ($a, $v) use ($more){
-			$ev = new EntityDamageByEntityEvent($a, $v, EntityDamageByEntityEvent::CAUSE_ENTITY_ATTACK, 1, 0);
+			$ev = new EntityDamageByEntityEvent($a, $v, EntityDamageByEntityEvent::CAUSE_ENTITY_ATTACK, 1, [], 0);
 			$task = new DelayAttack($a, $v, $ev);
 			for($i = 0; $i < $more; $i++){
 				Main::getInstance()->getScheduler()->scheduleDelayedTask($task, 20+$i*2);

@@ -45,9 +45,6 @@ abstract class AI{
 
 	public static function setSize(Human $enemy, $size){
 		$enemy->setScale($size);
-		//$enemy->width *= $size;
-		$enemy->length *= $size;
-		//$enemy->height *= $size;
 	}
 
 	/**
@@ -191,30 +188,30 @@ abstract class AI{
 		return new Vector3(sin($rad_y)*cos($rad_p), sin($rad_p), -cos($rad_y)*cos($rad_p));
 	}
 
-	public static function walkFront($enemy, $vec = 0.045, $yawd = 0, $jump = self::DEFAULT_JUMP){
+	public static function walkFront(Entity $enemy, $vec = 0.045, $yawd = 0, $jump = self::DEFAULT_JUMP){
 		$rad = deg2rad($enemy->yaw+$yawd);
 		$vx = -sin($rad);
 		$vz = cos($rad);
 		$walk = self::canWalk($enemy, $jump);
 		if($walk){
 			if($walk === 2){
-				$enemy->motionY = $jump;
+				$enemy->getMotion()->y = $jump;
 			}
-			$enemy->motionX = $vx*$vec/2;
-			$enemy->motionZ = $vz*$vec/2;	
+			$enemy->getMotion()->x = $vx*$vec/2;
+			$enemy->getMotion()->z = $vz*$vec/2;
 		}
-		$enemy->move($enemy->motionX, $enemy->motionY, $enemy->motionZ);
+		$enemy->move($enemy->getMotion()->x, $enemy->getMotion()->y, $enemy->getMotion()->z);
 		return $walk;
 	}
 
-	public static function jump($enemy, $vec = 0.15, $yawd = 0, $jump = self::DEFAULT_JUMP){
+	public static function jump(Entity $enemy, $vec = 0.15, $yawd = 0, $jump = self::DEFAULT_JUMP){
 		$rad = deg2rad($enemy->yaw+$yawd);
 		$vx = -sin($rad);
 		$vz = cos($rad);
-		$enemy->motionY = $jump;
-		$enemy->motionX = $vx*$vec/2;
-		$enemy->motionZ = $vz*$vec/2;	
-		$enemy->move($enemy->motionX, $enemy->motionY, $enemy->motionZ);
+		$enemy->getMotion()->y = $jump;
+		$enemy->getMotion()->x = $vx*$vec/2;
+		$enemy->getMotion()->z = $vz*$vec/2;
+		$enemy->move($enemy->getMotion()->x, $enemy->getMotion()->y, $enemy->getMotion()->z);
 	}
 
 	/**
@@ -293,7 +290,7 @@ abstract class AI{
 						continue;
 					}
 				}
-				$ev = new EntityDamageByEntityEvent($enemy, $player, EntityDamageByEntityEvent::CAUSE_ENTITY_ATTACK, round($power), 0);
+				$ev = new EntityDamageByEntityEvent($enemy, $player, EntityDamageByEntityEvent::CAUSE_ENTITY_ATTACK, round($power), [], 0);
 				$player->attack($ev);
 			}
 		}
@@ -368,7 +365,7 @@ abstract class AI{
 				if($dis <= $r){
 					if(sqrt(pow($x+$xx*$dis-$vx,2)+pow($y+$yy*$dis-$vy,2)+pow($z+$zz*$dis-$vz,2)) <= $rr){
 						$knockback = 0;
-						$ev = new EntityDamageByEntityEvent($enemy, $player_v, EntityDamageByEntityEvent::CAUSE_ENTITY_ATTACK, round($damage), $knockback);
+						$ev = new EntityDamageByEntityEvent($enemy, $player_v, EntityDamageByEntityEvent::CAUSE_ENTITY_ATTACK, round($damage), [], $knockback);
 						$player_v->attack($ev);
 					}
 				}

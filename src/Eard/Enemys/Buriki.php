@@ -185,7 +185,7 @@ class Buriki extends Humanoid implements Enemy{
 		]);
 		$custom_name = self::getEnemyName();
 		if(!is_null($custom_name)){
-			$nbt->CustomName = new StringTag("CustomName", $custom_name);
+			$nbt->setTag(new StringTag("CustomName", $custom_name));
 		}
 		$entity = new Buriki($level, $nbt);
 		$entity->setMaxHealth(self::getHP());

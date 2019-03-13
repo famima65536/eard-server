@@ -191,7 +191,7 @@ class Mangler extends Humanoid implements Enemy{
 		]);
 		$custom_name = self::getEnemyName();
 		if(!is_null($custom_name)){
-			$nbt->CustomName = new StringTag("CustomName", $custom_name);
+			$nbt->setTag(new StringTag("CustomName", $custom_name));
 		}
 		$entity = new Mangler($level, $nbt);
 		$random_hp = 1+(mt_rand(-10, 10)/100);
@@ -289,9 +289,9 @@ class Mangler extends Humanoid implements Enemy{
 
 		if($this->float !== -1){
 			if($this->float && 100 > $this->y){
-				$this->motionY = ($this->motionY+0.2)/6;
+				$this->getMotion()->y = ($this->getMotion()->y+0.2)/6;
 			}else{
-				$this->motionY = ($this->motionY-0.2)/6;
+				$this->getMotion()->y = ($this->getMotion()->y-0.2)/6;
 			}
 		}
 

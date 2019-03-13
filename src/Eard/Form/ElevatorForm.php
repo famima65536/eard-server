@@ -161,7 +161,7 @@ class animation extends Task {
 		]);
 		/*
 		if(!is_null($custom_name)){
-			$nbt->CustomName = new StringTag("CustomName", $custom_name);
+			$nbt->setTag(new StringTag("CustomName", $custom_name));
 		}*/
 		$entity = new DummyPlayer($player->getLevel(), $nbt);
 		$entity->setDataFlag(Entity::DATA_FLAGS, Entity::DATA_FLAG_CAN_SHOW_NAMETAG, true);

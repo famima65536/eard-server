@@ -60,9 +60,9 @@ class Humanoid extends Human{
 			case 11:
 			case 30:
 			case 31:
-			case 32:			
-			case 38:			
-			case 37:			
+			case 32:
+			case 38:
+			case 37:
 			case 50:
 			case 52:
 			case 65:
@@ -146,32 +146,33 @@ class Humanoid extends Human{
 					$this->close();
 					return true;
 				}
-				$weather = $this->level->getWeather()->getWeather();
+				//$weather = $this->level->getWeather()->getWeather();
+				$weather = 0;
 				if((($this->rainDamage && $weather <= 2 && $weather >= 1 && !isset(self::$noRainBiomes[$this->level->getBiomeId(intval($this->x), intval($this->z))])) || (($id = $this->level->getBlock($this)->getId()) === 9 || $id === 8) && $this->isDrown) && $this->getHealth() > 0){
 					$this->deadTicks = 0;
 					$this->attack(new EntityDamageEvent($this, EntityDamageEvent::CAUSE_SUFFOCATION, 2));
 				}
 
-				$this->motionY -= $this->gravity;
+				$this->getMotion()->y -= $this->gravity;
 
-				$this->move($this->motionX, $this->motionY, $this->motionZ);
+				$this->move($this->getMotion()->x, $this->getMotion()->y, $this->getMotion()->z);
 
 				$friction = 1 - $this->drag;
 
-				if($this->onGround and (abs($this->motionX) > 0.00001 or abs($this->motionZ) > 0.00001)){
+				if($this->onGround and (abs($this->getMotion()->x) > 0.00001 or abs($this->getMotion()->z) > 0.00001)){
 					$friction = $this->getLevel()->getBlock($this->temporalVector->setComponents((int) floor($this->x), (int) floor($this->y - 1), (int) floor($this->z) - 1))->getFrictionFactor() * $friction;
 				}
 
-				$this->motionX *= $friction;
-				$this->motionY *= 1 - $this->drag;
-				$this->motionZ *= $friction;
+				$this->getMotion()->x *= $friction;
+				$this->getMotion()->y *= 1 - $this->drag;
+				$this->getMotion()->z *= $friction;
 
 				if($this->onGround){
-					$this->motionY *= -0.5;
+					$this->getMotion()->y *= -0.5;
 				}
 
 				/*if(!self::canThrough($this->getLevel()->getBlockIdAt($this->x, $this->y-1.65, $this->z))){
-					$this->motionY = $this->gravity;
+					$this->getMotion()->y = $this->gravity;
 				}*/
 
 				$this->updateMovement();

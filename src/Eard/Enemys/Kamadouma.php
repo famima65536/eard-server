@@ -191,7 +191,7 @@ class Kamadouma extends Humanoid implements Enemy{
 		]);
 		$custom_name = self::getEnemyName();
 		if(!is_null($custom_name)){
-			$nbt->CustomName = new StringTag("CustomName", $custom_name);
+			$nbt->setTag(new StringTag("CustomName", $custom_name));
 		}
 		$entity = new Kamadouma($level, $nbt);
 		$random_hp = 1+(mt_rand(-10, 10)/100);

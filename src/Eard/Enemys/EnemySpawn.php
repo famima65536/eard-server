@@ -2,6 +2,7 @@
 
 namespace Eard\Enemys;
 
+use Eard\Main;
 use pocketmine\scheduler\Task;
 use pocketmine\level\Position;
 //use pocketmine\level\particle\HappyVillagerParticle;
@@ -17,7 +18,7 @@ class EnemySpawn extends Task{
 	const TIME = 20;
 
 	public static function call($class, Position $position, $type = self::TYPE_COMMON){
-		Main::getInstance()->getScheduler()->scheduleRepeatingTask(new EnemySpawn($class, $position, $type), 2);
+		//Main::getInstance()->getScheduler()->scheduleRepeatingTask(new EnemySpawn($class, $position, $type), 2);
 	}
 
 	public function __construct($class, $position, $type){

@@ -179,7 +179,7 @@ class Hopper extends Humanoid implements Enemy{
 		]);
 		$custom_name = self::getEnemyName();
 		if(!is_null($custom_name)){
-			$nbt->CustomName = new StringTag("CustomName", $custom_name);
+			$nbt->setTag(new StringTag("CustomName", $custom_name));
 		}
 		$entity = new Hopper($level, $nbt);
 		$random_hp = 1+(mt_rand(-10, 10)/100);
@@ -218,8 +218,8 @@ class Hopper extends Humanoid implements Enemy{
 				$this->getLevel()->addParticle(new DestroyBlockParticle($this, Block::get(2)));
 				$this->charge = false;
 			}else{
-				$this->motionX = 0;
-				$this->motionZ = 0;
+				$this->getMotion()->x = 0;
+				$this->getMotion()->z = 0;
 				AI::rangeAttack($this, 2.5, 4);
 				$this->getLevel()->addParticle(new DestroyBlockParticle($this, Block::get(2)));
 				AI::setRate($this, 20);

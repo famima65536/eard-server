@@ -5,6 +5,7 @@ namespace Eard;
 # Basic
 use Eard\DBCommunication\Place;
 use pocketmine\Player;
+use pocketmine\scheduler\Task;
 use pocketmine\Server;
 use pocketmine\event\Listener;
 use pocketmine\plugin\PluginBase;
@@ -86,6 +87,16 @@ class Main extends PluginBase implements Listener, CommandExecutor{
 
 		# (http://korado.s602.xrea.com/service/pngconverter.php)で変換したスキンデータを使うときに必要
 		//EnemyRegister::reEncode('gallacy');
+
+		$this->getScheduler()->scheduleRepeatingTask(new class extends Task{
+			private $lastError = "";
+			public function onRun(int $currentTick){
+				if($this->lastError !== ($error = DB::get()->error) and $error !== ""){
+					Main::getInstance()->getLogger()->notice($error);
+					$this->lastError = $error;
+				}
+			}
+		}, 20);
 	}
 
 	public function reconnect(){
